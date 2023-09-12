@@ -50,7 +50,8 @@ config_bot.on("my_chat_member", async (ctx) => {
 });
 
 config_bot.use(async (ctx, next) => {
-    if (false) {
+    let permission_list = [ctx.t("cancel_action_btn_text")]
+    if (permission_list.includes(ctx.message?.text)) {
         const stats = await ctx.conversation.active();
         for (let key of Object.keys(stats)) {
             await ctx.conversation.exit(key);

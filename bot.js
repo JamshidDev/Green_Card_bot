@@ -12,11 +12,10 @@ const customLogger = require("./config/customLogger");
 
 // modules
 
-const {client_bot} = require("./modules/clientModules");
+const client_bot = require("./modules/clientModules");
 const {config_bot} = require("./modules/configModules")
 
 const bot_token = process.env.BOT_TOKEN;
-const payme_tokent = process.env.PAYME_PROVIDER_TOKEN;
 
 
 
