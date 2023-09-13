@@ -24,10 +24,11 @@ config_bot.use(session({
     session_db: {
         initial: () => {
             return {
-                client: {
+                condidate: {
                     fullname: null,
                     birthday: null,
                     picture: null,
+                    pasport:null,
                     live_adress: null,
                     birth_adress: null,
                     phone: null,

@@ -6,6 +6,11 @@ language_ru =🇷🇺 Rus tili
 
 cancel_action_btn_text = 🔴 Bekor qilish
 
+confirm_anketa_btn_text = ✅ Tasdiqlash
+
+refull_anketa_btn_text = 🔄 Qayta to'ldirish
+
+
 
 service_info = Assalomu alaykum! Biz sizga ko’pchilikning orzusi bo’lgan Amerikada yashash va ishlash uchun <b>(Green card.Грин карта.)</b> lotoreyasini qo’lga kiritishingizda yordam beramiz! 
 
@@ -15,33 +20,37 @@ service_info = Assalomu alaykum! Biz sizga ko’pchilikning orzusi bo’lgan Ame
      Hammasi juda oddiy, siz shunchaki kerakli ma’lumotlarni videoqo’llanmada ko’rsatilgandek to’g’ri va xatolarsiz to’ldirishingiz kifoya.
      <i> Bor yog’i 100 000 so’m.</i>
 
-register_btn_text = ♻️ Anketa to'ldirish
+register_btn_text = ✉️ Anketa to'ldirish
 
 my_anketa_btn_text = 📨 Anketalarim
 
 call_center_btn_text = ☎️ Kontaktlar
+
+guid_btn_text = 📘 Qo'llanma
+
+ticket_payment_btn_text = 📑 Chek yuborish
 
 warning_data_text = <b>⚠️ Eslatma</b>
 
      <i>Iltimos ma'lumotlarni to'liq va aniq holatda ko'rsatilgandek to'ldiring!</i>
 
 
-fullname_text = ✍️ Ism sharifingizni kiriting!
+fullname_text = ✍️ Ism sharifingizni yozing!
 
      <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
 
 fullname_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
-     <i>✍️ Ism sharifingizni kiriting</i>
+     <i>✍️ Ism sharifingizni yozing</i>
      <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
 
-birthdate_text =✍️ Tug'ilgan sanangizni kiriting!
+birthdate_text =✍️ Tug'ilgan sanangizni yozing!
 
      <i>Masalan: <b>02.07.2001</b></i>
 
 birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
-     <i>✍️ Tug'ilgan sanangizni kiriting!</i>
+     <i>✍️ Tug'ilgan sanangizni yozing!</i>
      <i>Masalan: <b>02.07.2001</b></i>
 
 picture_text =✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!
@@ -50,28 +59,36 @@ picture_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
 
-uz_adress_text = ✍️ O'zbekistondagi to'liq yashash manzilingizni kiriting!
+pasport_text =✍️ Pasportingiz rasmini yuboring!
+
+pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     <i>✍️ Pasportingiz rasmini yuboring!</i>
+
+uz_adress_text = ✍️ O'zbekistondagi to'liq yashash manzilingizni yozing!
+
       <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
-uz_adress_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+uz_adress_error_text = ⚠️ Noto'g'ri ma'lumot yozing!
 
-     <i>✍️ O'zbekistondagi to'liq yashash manzilingizni kiriting!</i>
+     <i>✍️ O'zbekistondagi to'liq yashash manzilingizni yozing!</i>
      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
-country_text = ✍️ Hozir qaysi davlatdasiz!
-      <i>Masalan: <b>O'zbekiston</b></i>
+country_text = ✍️ Tug'ulgan manzilingizni to'liq yozing!
+      
+       <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
 country_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
-     <i> ✍️ Hozir qaysi davlatdasiz!</i>
-     <i>Masalan: <b>O'zbekiston</b></i>
+     <i>✍️ Tug'ulgan manzilingizni to'liq yozing!</i>
+      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
-phone_number_text = ✍️ Telefon raqamingizni kiriting!
+phone_number_text = ✍️ Telefon raqamingizni yozing!
       <i>Masalan: <b>+998xx xxxx xx xx</b></i>
 
 phone_number_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
-     <i> ✍️ Telefon raqamingizni kiriting!</i>
+     <i> ✍️ Telefon raqamingizni yozing!</i>
      <i>Masalan: <b>+998xx xxxx xx xx</b></i>
 
 aducation_text = 👇 Ta'lim darajangizni tanlang!
@@ -87,7 +104,7 @@ marital_status_text = 👇 Oilaviy holatingiz tanlang!
 
      <i>Tugmalar orqali tanlang</i>
 
-aducation_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+marital_status_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>👇 Oilaviy holatingiz tanlang!</i>
       <i>Tugmalar orqali tanlang</i>
@@ -114,14 +131,14 @@ no_have_child = Farzandim yo'q
 
 children_count_text =21 yoshga to'lmagan farzandlaringiz sonini kiriting!
 
-     <i>Agar 21 yoshga to'lmagan  farzandingiz yo'q bo'lsa <b>Farzandim yo'q</b> tugmasini bosing</i>
      <i>Masalan: <b>1; 2; 3;</b></i>
+     <i>Agar 21 yoshga to'lmagan  farzandingiz yo'q bo'lsa <b>Farzandim yo'q</b> tugmasini bosing</i>
 
 children_count_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
      Farzandlaringiz sonini kiriting!
-     <i>Agar farzandingiz yo'q bo'lsa <b>Farzandsizman</b> tugmasini bosing</i>
      <i>Masalan: <b>1; 2; 3;</b></i>
+     <i>Agar farzandingiz yo'q bo'lsa <b>Farzandsizman</b> tugmasini bosing</i>
 
 
 child_fullname_text =  {$number} - Farzandingizni ism familiyasini kiriting!
