@@ -110,6 +110,20 @@ marital_3 = Ajrashgan
 
 marital_4 = Beva
 
+no_have_child = Farzandim yo'q
+
+children_count_text =21 yoshga to'lmagan farzandlaringiz sonini kiriting!
+
+     <i>Agar 21 yoshga to'lmagan  farzandingiz yo'q bo'lsa <b>Farzandim yo'q</b> tugmasini bosing</i>
+     <i>Masalan: <b>1; 2; 3;</b></i>
+
+children_count_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     Farzandlaringiz sonini kiriting!
+     <i>Agar farzandingiz yo'q bo'lsa <b>Farzandsizman</b> tugmasini bosing</i>
+     <i>Masalan: <b>1; 2; 3;</b></i>
+
+
 child_fullname_text =  {$number} - Farzandingizni ism familiyasini kiriting!
 
       <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
@@ -119,6 +133,57 @@ child_fullname_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
       <i>{$number} - Farzandingizni ism familiyasini kiriting!</i>
       <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
      
-child_fullname_text =  {$number} - Farzandingizni ism familiyasini kiriting!
+child_birthday_text =  {$number} - Farzandingizni tug'ulgan sanasini  kiriting!
 
-      <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
+      <i>Masalan: <b>02.07.2000</b></i>
+
+child_birthday_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+      <i>{$number} - Farzandingizni tug'ulgan sanasini  kiriting!</i>
+      <i>Masalan: <b>02.07.2000</b></i>
+
+child_picture_text =  {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!
+
+child_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+      <i> {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
+     
+child_pasport_text =  {$number} - Farzandingizni pasport yoki meterkasini rasmini yuboring!
+
+child_pasport_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+      <i> {$number} - Farzandingizni Farzandingizni pasport yoki meterkasini rasmini yuboring!</i>
+     
+ 
+hw_fullname_text = ✍️ Eringiz/Ayolingiz ism sharifini kiriting!
+
+     <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li/ Sobirova Anora Yo'ldash qizi</b></i>
+
+hw_fullanme_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     <i>✍️ Eringiz/Ayolingiz ism sharifini kiriting!</i>
+     <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li/Sobirova Anora Yo'ldash qizi</b></i>
+
+
+hw_birthdate_text =✍️ Eringiz/Ayolingiz tug'ilgan sanasini kiriting!
+
+     <i>Masalan: <b>02.07.1996</b></i>
+
+hw_birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     <i>✍️ Eringiz/Ayolingiz tug'ilgan sanasini kiriting!</i>
+      <i>Masalan: <b>02.07.1996</b></i>
+
+hw_picture_text =✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!
+
+hw_picture_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     <i>✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!</i>
+
+hw_pasport_text =✍️ Eringiz/Ayolingiz pasport rasmini yuboring!
+
+hw_pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     <i>✍️ Eringiz/Ayolingiz pasport rasmini yuboring!</i>
+
+  

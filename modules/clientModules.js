@@ -32,6 +32,8 @@ pm.use(createConversation(main_menu_conversation));
 pm.use(createConversation(menu_conversation));
 pm.use(createConversation(register_anketa_conversation));
 pm.use(createConversation(children_counter_conversation));
+pm.use(createConversation(husband_woman_conversation));
+
 
 // conversation 
 
@@ -233,45 +235,204 @@ async function register_anketa_conversation(conversation, ctx) {
     }
     let merital = ctx.message.text;
 
-    if(ctx.message.text == ctx.t("marital_1") ){
+    if (ctx.message.text == ctx.t("marital_1")) {
         await ctx.reply("Tugadi.")
     }
-    
+
 
 }
 
-async function children_counter_conversation(conversation, ctx){
-    await ctx.reply("Farzandlaringiz sonini kiriting");
-    let amout_children = await conversation.wait();
+async function husband_woman_conversation(conversation, ctx){
+    await ctx.reply(ctx.t("hw_fullname_text"), {
+        parse_mode:"HTML"
+    })
+    ctx = await conversation.wait();
+    if (!ctx.message?.text) {
+        do {
+            await ctx.reply(ctx.t("hw_fullanme_error_text"), {
+                parse_mode: "HTML",
+            });
+            ctx = await conversation.wait();
+        } while (!ctx.message?.text);
+    }
 
-    for(let number=1; number<= 4; number++){
+     conversation.session.session_db.husband_woman.fullname = ctx.message.text;
+     await ctx.reply(ctx.t("hw_birthdate_text"), {
+        parse_mode:"HTML"
+    })
+    ctx = await conversation.wait();
+    if (!(ctx.message?.text && ctx.message?.text?.length == 10)) {
+        do {
+            await ctx.reply(ctx.t("hw_birthdate_error_text"), {
+                parse_mode: "HTML"
+            })
+            ctx = await conversation.wait();
+        } while (!(ctx.message?.text && ctx.message?.text?.length == 10));
+    }
+    conversation.session.session_db.husband_woman.birthday = ctx.message.text;
+    await ctx.reply(ctx.t("hw_picture_text"), {
+        parse_mode:"HTML"
+    })
+    ctx = await conversation.wait();
 
+    if (!ctx.message?.photo) {
+        do {
+            await ctx.reply(ctx.t("hw_picture_error_text"), {
+                parse_mode: "HTML",
+            });
+            ctx = await conversation.wait();
+        } while (!ctx.message?.photo);
+    }
+    conversation.session.session_db.husband_woman.picture = ctx.message.photo;
+    await ctx.reply(ctx.t("hw_pasport_text"), {
+        parse_mode:"HTML"
+    })
+    ctx = await conversation.wait();
+    if (!ctx.message?.photo) {
+        do {
+            await ctx.reply(ctx.t("hw_pasport_error_text"), {
+                parse_mode: "HTML",
+            });
+            ctx = await conversation.wait();
+        } while (!ctx.message?.photo);
+    }
+    conversation.session.session_db.husband_woman.pasport = ctx.message.photo;
+    let hw = conversation.session.session_db.husband_woman;
+    console.log(hw);
+    await ctx.conversation.enter("children_counter_conversation");
+
+
+};
+
+
+
+async function children_counter_conversation(conversation, ctx) {
+    let child_keyboard = new Keyboard()
+    .text(ctx.t("no_have_child"))
+    .row()
+    .text(ctx.t("cancel_action_btn_text"))
+    .resized();
+    await ctx.reply(ctx.t("children_count_text"), {
+        parse_mode:"HTML", 
+        reply_markup:child_keyboard
+    });
+    ctx = await conversation.wait();
+
+    if(!(ctx.message?.text && !isNaN(ctx.message.text) && ctx.message.text?.length ==1 && ctx.message.text != '0')){
+        do {
+            await ctx.reply(ctx.t("children_count_error_text"), {
+                parse_mode: "HTML",
+            });
+            ctx = await conversation.wait();
+        } while (!(ctx.message?.text && !isNaN(ctx.message.text) && ctx.message.text?.length ==1 && ctx.message.text != '0'));
+    }
+    let children_count = +ctx.message.text;
+
+    let abort_action_btn = new Keyboard()
+        .text(ctx.t("cancel_action_btn_text"))
+        .resized();
+    for (let number = 1; number <= children_count; number++) {
+        let children = {
+            number: null,
+            fullname: null,
+            birthday: null,
+            picture: null,
+            pasport:null,
+        }
+        // child fullname
         await ctx.reply(ctx.t("child_fullname_text", {
             number
-        }));
+        }), {
+            parse_mode: "HTML",
+            reply_markup: abort_action_btn,
+        });
         ctx = await conversation.wait();
         if (!ctx.message?.text) {
             do {
-                await ctx.reply(ctx.t("child_fullname_error_text"), {
+                await ctx.reply(ctx.t("child_fullname_error_text", {
+                    number
+                }), {
                     parse_mode: "HTML",
                 });
                 ctx = await conversation.wait();
             } while (!ctx.message?.text);
         }
-        let child_fullname = ctx.message.text;
-        console.log("1 -" + child_fullname);
-        
-    }
+        children.number = number;
+        children.fullname = ctx.message.text;
+        // child birthday
+        await ctx.reply(ctx.t("child_birthday_text", {
+            number
+        }), {
+            parse_mode: "HTML",
+        });
+        ctx = await conversation.wait();
+        if (!(ctx.message?.text && ctx.message?.text?.length == 10)) {
+            do {
+                await ctx.reply(ctx.t("child_birthday_error_text", {
+                    number
+                }), {
+                    parse_mode: "HTML"
+                })
+                ctx = await conversation.wait();
+            } while (!(ctx.message?.text && ctx.message?.text?.length == 10));
+        }
+        children.birthday = ctx.message.text;
+        // child picture
+        await ctx.reply(ctx.t("child_picture_text", {
+            number
+        }), {
+            parse_mode: "HTML",
+        });
+        ctx = await conversation.wait();
+        if (!ctx.message?.photo) {
+            do {
+                await ctx.reply(ctx.t("child_picture_error_text", {
+                    number
+                }), {
+                    parse_mode: "HTML",
+                });
+                ctx = await conversation.wait();
+            } while (!ctx.message?.photo);
+        }
+        children.picture = ctx.message.photo;
+       
 
+        // child pasport picture
+        await ctx.reply(ctx.t("child_pasport_text", {
+            number
+        }), {
+            parse_mode: "HTML",
+        });
+        ctx = await conversation.wait();
+        if (!ctx.message?.photo) {
+            do {
+                await ctx.reply(ctx.t("child_pasport_error_text", {
+                    number
+                }), {
+                    parse_mode: "HTML",
+                });
+                ctx = await conversation.wait();
+            } while (!ctx.message?.photo);
+        }
+        children.pasport = ctx.message.photo;
+        conversation.session.session_db.children_list.push(children);
+
+    }
     
+
+    let list = ctx.session.session_db.children_list;
+    console.log(list);
+
+
+
 
 }
 
 
 
 
-pm.command("children", async(ctx)=>{
-    await ctx.conversation.enter("children_counter_conversation");
+pm.command("children", async (ctx) => {
+    await ctx.conversation.enter("husband_woman_conversation");
 })
 
 
@@ -381,6 +542,9 @@ bot.filter(hears("register_btn_text"), async (ctx) => {
 
 bot.filter(hears("cancel_action_btn_text"), async (ctx) => {
     await ctx.conversation.enter("menu_conversation");
+});
+bot.filter(hears("no_have_child"), async (ctx) => {
+    console.log("no child");
 });
 
 

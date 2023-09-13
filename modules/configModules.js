@@ -25,8 +25,21 @@ config_bot.use(session({
         initial: () => {
             return {
                 client: {
+                    fullname: null,
+                    birthday: null,
+                    picture: null,
+                    live_adress: null,
+                    birth_adress: null,
                     phone: null,
-                    full_name: null,
+                    education: null,
+                    marital_status: null,
+                },
+                children_list: [],
+                husband_woman: {
+                    fullname: null,
+                    birthday: null,
+                    picture: null,
+                    pasport: null,
                 },
             }
         },
@@ -50,7 +63,7 @@ config_bot.on("my_chat_member", async (ctx) => {
 });
 
 config_bot.use(async (ctx, next) => {
-    let permission_list = [ctx.t("cancel_action_btn_text")]
+    let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child")]
     if (permission_list.includes(ctx.message?.text)) {
         const stats = await ctx.conversation.active();
         for (let key of Object.keys(stats)) {
@@ -88,4 +101,4 @@ config_bot.use(async (ctx, next) => {
 
 
 
-module.exports = {config_bot}
+module.exports = { config_bot }
