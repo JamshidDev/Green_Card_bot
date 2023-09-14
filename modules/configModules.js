@@ -19,6 +19,7 @@ const i18n = new I18n({
 });
 config_bot.use(i18n);
 
+
 config_bot.use(session({
     type: "multi",
     session_db: {
@@ -42,9 +43,11 @@ config_bot.use(session({
                     picture: null,
                     pasport: null,
                 },
+                selected_check:null,
             }
         },
         storage: new MemorySessionStorage(),
+        getSessionKey: (ctx) => ctx.chat?.id.toString(),
     },
     conversation: {},
     __language_code: {},

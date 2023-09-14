@@ -5,8 +5,8 @@ const {
     conversations,
     createConversation,
 } = require("@grammyjs/conversations");
-const { check_user, register_user, remove_user, set_user_lang } = require("../controllers/userController");
-
+const { check_user, register_user, user_info, remove_user, set_user_lang } = require("../controllers/userController");
+const { register_order, my_orders, check_orders } = require("../controllers/orderControllser");
 const bot = new Composer();
 const i18n = new I18n({
     defaultLocale: "uz",
@@ -33,6 +33,9 @@ pm.use(createConversation(menu_conversation));
 pm.use(createConversation(children_counter_conversation));
 pm.use(createConversation(husband_woman_conversation));
 pm.use(createConversation(register_anketa_conversation));
+pm.use(createConversation(send_paymentcheck_conversation));
+
+
 
 
 
@@ -40,14 +43,14 @@ pm.use(createConversation(register_anketa_conversation));
 
 async function main_menu_conversation(conversation, ctx) {
     let main_menu = new Keyboard()
-    .text(ctx.t("register_btn_text"))
-    .row()
-    .text(ctx.t("my_anketa_btn_text"))
-    .text(ctx.t("ticket_payment_btn_text"))
-    .row()
-    .text(ctx.t("guid_btn_text"))
-    .text(ctx.t("call_center_btn_text"))
-    .resized();
+        .text(ctx.t("register_btn_text"))
+        .row()
+        .text(ctx.t("my_anketa_btn_text"))
+        .text(ctx.t("ticket_payment_btn_text"))
+        .row()
+        .text(ctx.t("guid_btn_text"))
+        .text(ctx.t("call_center_btn_text"))
+        .resized();
     await ctx.reply(ctx.t("service_info"), {
         parse_mode: "HTML",
         reply_markup: main_menu
@@ -281,6 +284,47 @@ async function register_anketa_conversation(conversation, ctx) {
     }
 }
 
+async function send_paymentcheck_conversation(conversation, ctx) {
+
+    let abort_action_btn = new Keyboard()
+    .text(ctx.t("cancel_action_btn_text"))
+    .resized();
+
+    if (!conversation.session.session_db.selected_check) {
+        await ctx.reply(ctx.t("reaction_text"), {
+            parse_mode: "HTML",
+        })
+        return
+
+    }
+
+    await ctx.reply(ctx.t("check_number_picture_text"), {
+        parse_mode: "HTML",
+        reply_markup:abort_action_btn
+    })
+
+    ctx = await conversation.wait();
+    if (!ctx.message?.photo) {
+        do {
+            await ctx.reply(ctx.t("check_number_picture_error_text"), {
+                parse_mode: "HTML",
+            });
+            ctx = await conversation.wait();
+        } while (!ctx.message?.photo);
+    }
+
+    let check_picture = ctx.message.photo;
+    console.log(check_picture);
+
+    await ctx.reply(ctx.t("success_check_text"), {
+        parse_mode:"HTML"
+    });
+    const check_number = ctx.session.session_db.selected_check.order_number;
+    await ctx.conversation.enter("menu_conversation");
+  
+
+};
+
 
 
 
@@ -489,7 +533,7 @@ Telefon raqam: <b>${candidate.phone}</b>
 Ma'lumoti: <b>${candidate.education}</b>
 Oilaviy holati: <b>${candidate.marital_status}</b>`
 
-    if (candidate.marital_status != ctx.t("marital_1")) {
+    if (candidate.marital_status == ctx.t("marital_2")) {
         let hw_text = `
 
 <b>👬 Eri/Ayoli</b>
@@ -529,38 +573,24 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
     })
 }
 
+// clear session data of user
+const clear_seasion_data = async (ctx) => {
+    ctx.session.session_db.condidate.fullname = null
+    ctx.session.session_db.condidate.birthday = null
+    ctx.session.session_db.condidate.picture = []
+    ctx.session.session_db.condidate.pasport = []
+    ctx.session.session_db.condidate.live_adress = null
+    ctx.session.session_db.condidate.birth_adress = null
+    ctx.session.session_db.condidate.phone = null
+    ctx.session.session_db.condidate.education = null
+    ctx.session.session_db.condidate.marital_status = null
 
-
-
-
-
-
-
-
-
-
-pm.command("children", async (ctx) => {
-    //     await ctx.reply(`
-    // <b>📌 Anketadagi ma'lumotlarni tekshiring va barcha ma'lumotlaringiz to'g'ri bo'lsa tasdiqlash tugmasini bosing!</b>
-
-    // F .I .SH: <b>Raximov Jamshid Shuxrat o'g'li</b>
-    // Tug'ilgan sana: <b>02.07.2000</b>
-    // Rasm: <b>Bor</b>
-    // Pasport rasmi: <b>Bor</b>
-    // Yashash manzil: <b> Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b>
-    // Tug'ilgan manzil: <b> Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b>
-    // Telefon raqam: <b> +998995016004</b>
-    // Ma'lumoti: <b> Bakalavir diplomi</b>
-    // Oilaviy holati: <b> Uylanmagan/Turmushga chiqmagan</b>
-    //     `, {
-    //         parse_mode: "HTML"
-    //     })
-
-    await anketa_list(ctx)
-})
-
-
-
+    ctx.session.session_db.children_list = []
+    ctx.session.session_db.husband_woman.fullname = null
+    ctx.session.session_db.husband_woman.birthday = null
+    ctx.session.session_db.husband_woman.picture = []
+    ctx.session.session_db.husband_woman.pasport = []
+}
 
 
 
@@ -628,6 +658,16 @@ pm.command("start", async (ctx) => {
 
 })
 
+pm.command("change_language", async (ctx) => {
+    await ctx.reply(ctx.t("start_hello_msg", {
+        full_name: ctx.from.first_name,
+        organization_name: ctx.me.first_name
+    }), {
+        parse_mode: "HTML",
+        reply_markup: language_menu
+    })
+})
+
 
 
 
@@ -661,6 +701,7 @@ pm.command("start", async (ctx) => {
 
 
 bot.filter(hears("register_btn_text"), async (ctx) => {
+    await clear_seasion_data(ctx)
     await ctx.conversation.enter("register_anketa_conversation");
 });
 
@@ -671,43 +712,137 @@ bot.filter(hears("no_have_child"), async (ctx) => {
     await anketa_list(ctx)
 });
 bot.filter(hears("refull_anketa_btn_text"), async (ctx) => {
+    await clear_seasion_data(ctx)
     await ctx.conversation.enter("register_anketa_conversation");
 });
 bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
     let candidate = ctx.session.session_db.condidate;
     let hw = ctx.session.session_db.husband_woman;
     let children_list = ctx.session.session_db.children_list;
-    console.log(candidate + '\n' + hw + '\n' + children_list);
-    await ctx.reply(`
-✅  Sizning <b>Green Card</b> uchun ma'lumotlaringiz qabul qilindi.
+    let exist_user = await user_info(ctx.from.id)
 
-📨 Buyurtma raqami: <b>24</b>
-🕤 Buyurtma sanasi: <b>${new Date().toLocaleString()}</b>
-💰 To'lov summasi: <b>100 000 so'm</b>
-<i>💳 Karta raqami: <b>5614681401907245</b></i>
-<i>👤 Karta egasi: Jamshid Raximov Shuxrat o'g'li</i>
-    `, {
-        parse_mode: "HTML"
-    })
+    if (candidate.fullname && candidate.marital_status && exist_user) {
+        let data = {
+            client_id: exist_user._id,
+            client_tg_id: ctx.from.id,
+            full_name: candidate.fullname,
+            birthday: candidate.birthday,
+            picture: candidate.picture,
+            pasport: candidate.pasport,
+            live_adress: candidate.live_adress,
+            birth_adress: candidate.birth_adress,
+            phone: candidate.phone,
+            education: candidate.education,
+            marital_status: candidate.marital_status,
+        }
+        console.log(candidate.marital_status == ctx.t("marital_2"));
+        if (candidate.marital_status == ctx.t("marital_2")) {
+            data.husband_woman = hw
+        }
 
-    await ctx.conversation.enter("menu_conversation");
+        if (candidate.marital_status !== ctx.t("marital_1")) {
+            data.children_list = children_list
+        }
+
+        console.log(data);
+        let order = await register_order(data);
+        console.log(order);
+
+        await ctx.reply(ctx.t("payment_ticket_text", {
+            order_number: order.order_number,
+            order_date: order.created_at,
+            service_price: '100 000',
+            card_number: '5614681401907245',
+            card_owner: "Jamshid Raximov Shuxrat o'g'li",
+        }), {
+            parse_mode: "HTML"
+        })
+        await ctx.conversation.enter("menu_conversation");
+
+
+    } else {
+        await ctx.reply(ctx.t("expire_message_text"), {
+            parse_mode: "HTML"
+        })
+        await ctx.conversation.enter("menu_conversation");
+    }
 
 });
 
 bot.filter(hears("guid_btn_text"), async (ctx) => {
-    await ctx.reply("Qo'llanma...")
+    await ctx.reply("Tez orada qo'shiladi qo'llanma...")
 });
 
 bot.filter(hears("call_center_btn_text"), async (ctx) => {
-    await ctx.reply("Kontaktlar...")
+    await ctx.reply(ctx.t("contact_phone_text"), {
+        parse_mode: "HTML"
+    })
 });
+
+
+const check_menu_btn = new Menu("check_menu_btn")
+    .dynamic(async (ctx, range) => {
+        let list = await check_orders(ctx.from.id);
+        list.forEach((item) => {
+            range
+                .text(item.order_number, async (ctx) => {
+                    await ctx.answerCallbackQuery();
+                    await ctx.deleteMessage();
+                    ctx.session.session_db.selected_check = item;
+                    await ctx.conversation.enter("send_paymentcheck_conversation");
+                })
+                .row();
+        })
+    })
+pm.use(check_menu_btn)
+
 
 bot.filter(hears("ticket_payment_btn_text"), async (ctx) => {
-    await ctx.reply("Chek yuborish...")
+    await ctx.reply(ctx.t("check_order_send_text"), {
+        parse_mode: "HTML",
+        reply_markup: check_menu_btn,
+    })
 });
 
+const status_text = (active, payment, finished) => {
+    if (!active) {
+        return "Rad etilgan ❌"
+    } else if (!payment) {
+        return "To'lov kutilmoqda ⏳"
+    } else if (!finished) {
+        return "Bajarilishi kutilmoqda ⏳"
+    } else if (finished) {
+        return "Ro'yhatga olindi ✅"
+    }
+
+}
+
 bot.filter(hears("my_anketa_btn_text"), async (ctx) => {
-    await ctx.reply("Anketalarim...")
+    let orders = await my_orders(ctx.from.id);
+    if (orders.length > 0) {
+        let my_order_text = `<b>📨 Mening anketalarim</b>`
+
+        for (let i = 0; i < orders.length; i++) {
+            let anketa = orders[i];
+            let text = `
+
+✉️ Anketa raqami: <b>${anketa.order_number}</b>
+🕤 Anketa sanasi: <b>${new Date(anketa.created_at).toLocaleString()}</b>
+💰 To'lov holati: <b>${anketa.is_payment ? "To'lov qilingan ✅" : "To'lov qilinmagan ❌"}</b>
+📌 Anketa holati: <b>${status_text(anketa.active, anketa.is_payment, anketa.is_finished)}</b>
+📍 Sababi: <b>${anketa.ban_reason || ''}</b>`
+            my_order_text = my_order_text + text
+        }
+
+
+        await ctx.reply(my_order_text, {
+            parse_mode: "HTML"
+        })
+    } else {
+        await ctx.reply(ctx.t("no_anketa_text"), {
+            parse_mode: "HTML"
+        })
+    }
 });
 
 

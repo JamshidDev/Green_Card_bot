@@ -203,4 +203,42 @@ hw_pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>✍️ Eringiz/Ayolingiz pasport rasmini yuboring!</i>
 
+expire_message_text = <b>⚠️ Eskirgan xabar!</b>
+
+     <i>Iltimos qayta anketa to'ldiring!</i>
+
+reaction_text = <b>⚠️ Eskirgan xabar!</b>
+
+     <i>Iltimos amalni qayta takrorlang!</i>
+
+payment_ticket_text = ✅ Sizning <b>Green Card</b> uchun  to'ldirgan anketangiz qabul qilindi.
+
+     📨 Buyurtma raqami: <b>{$order_number}</b>
+     🕤 Buyurtma sanasi: <b>{$order_date}</b>
+     💰 To'lov summasi: <b>{$service_price} so'm</b>
+     <i>💳 Karta raqami: <b>{$card_number}</b></i>
+     <i>👤 Karta egasi: <b>{$card_owner}</b></i>
+
+     <i>Yuqorida keltirilgan karta raqamga to'lovni amalga oshiring va <b>📑 Chek yuborish</b> tugmasi orqali to'lov chekini yuboring</i>
   
+
+
+contact_phone_text = <b>Bog'lanish uchun raqamlar</b>
+
+     <b>🔍 Savol va murojatlar uchun raqamlar</b>
+     <i>☎️ Call markaz: <b> +998 (99) 140-09-99</b></i>
+     <i>☎️ Qo'shimcha raqam: <b> +998 (99) 140-09-99</b></i>
+
+no_anketa_text = <i><b>🤷‍♂️ Sizda anketalar yo'q</b></i>
+
+check_order_send_text = <b>📑 Chek yuborish</b>
+     
+     <i>To'lov qilingan Anketa raqami tanlang</i>
+
+check_number_picture_text = <b>To'lov chekini rasmini yuboring!</b>
+
+check_number_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+
+     <i>To'lov chekini rasmini yuboring!</i>
+
+success_check_text = <b>✅ To'lov cheki adminga tekshiruv uchun yuborildi!</b>

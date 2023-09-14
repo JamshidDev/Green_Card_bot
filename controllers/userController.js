@@ -49,6 +49,17 @@ const check_user = async (user_id) => {
     }
 }
 
+const user_info = async (user_id) => {
+    try {
+        return await User.findOne({ user_id})
+    } catch (error) {
+        customLogger.log({
+            level: 'error',
+            message: error
+        });
+    }
+}
+
 const set_user_lang = async (data) => {
     try {
         let exist_user = await User.findOne({ user_id: data.user_id }).exec();
@@ -75,4 +86,5 @@ module.exports = {
     remove_user,
     check_user,
     set_user_lang,
+    user_info,
 }

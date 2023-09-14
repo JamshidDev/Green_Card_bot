@@ -30,7 +30,10 @@ bot.use(config_bot)
 bot.use(client_bot)
 
 
-
+bot.use(async(ctx, next)=>{
+    await ctx.conversation.enter("menu_conversation");
+    next()
+})
 
 
 bot.catch((err) => {
