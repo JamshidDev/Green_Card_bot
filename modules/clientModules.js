@@ -5,8 +5,25 @@ const {
     conversations,
     createConversation,
 } = require("@grammyjs/conversations");
+require('dotenv').config()
+
+
 const { check_user, register_user, user_info, remove_user, set_user_lang } = require("../controllers/userController");
 const { register_order, my_orders, check_orders } = require("../controllers/orderControllser");
+const { register_payment } = require("../controllers/paymentController")
+
+
+
+// Environments variables
+const Payment_Id = process.env.PAYMENT_ID;
+const General_Id = process.env.GENERAL_ID;
+
+
+// Payment card details
+const CARD_NUMBER = "5614681401907245";
+const CARD_OWNER = "Jamshid Raximov Shuxrat o'g'li";
+const SERVICE_PRICE = "100 000"
+
 const bot = new Composer();
 const i18n = new I18n({
     defaultLocale: "uz",
@@ -17,6 +34,104 @@ const i18n = new I18n({
     },
 });
 bot.use(i18n);
+
+
+
+// Helper function
+
+const notefication_payment = async (ctx, file_id, order_number) => {
+    await ctx.api.sendPhoto(Payment_Id, file_id, {
+        caption: `
+<b>🔔 To'lov cheki yuborildi</b>
+
+✉️ Anketa raqami: <b>${order_number}</b>
+👤 Yuboruvchi: <a href="tg://user?id=${ctx.from.id}">Telegram (${ctx.from.first_name})</a>`,
+        parse_mode: "HTML",
+    })
+}
+
+const picture_notefication = async (ctx, file_id, full_name, birthday, owner_type, child_number) => {
+    // type == candidate; hw; child
+    let picture_owner = '';
+    if (owner_type == 'candidate') {
+        picture_owner = "Kandidat"
+    } else if (owner_type == 'hw') {
+        picture_owner = "Eri/Ayoli"
+    } else if (owner_type == 'child') {
+        picture_owner = child_number + " - Farzand"
+    }
+
+
+    let msg_text = `
+Rasm egasi: <b>${picture_owner}</b>
+👤 F. I. SH: <b>${full_name}</b>
+🗓 Tug'ilgan sana: <b>${birthday}</b>
+`
+
+    await ctx.api.sendPhoto(General_Id, file_id, {
+        caption: msg_text,
+        parse_mode: "HTML",
+    })
+
+}
+
+
+const data_sender = async (ctx, data) => {
+
+    let anketa_text = `
+ <b>🔔 Yangi anketa yuborildi!</b>
+
+ ✉️ Anketa raqami: <b>${data.order_number}</b>
+<b>👤 Yuborivchi: Kandidat</b>
+
+👤 F.I.SH: <b>${data.full_name}</b>
+🗓 Tug'ilgan sana: <b>${data.birthday}</b>
+📍 Yashash manzili: <b>${data.live_adress}</b>
+📍 Tug'ilgan manzili: <b>${data.birth_adress}</b>
+📞 Telefon: <b>${data.phone}</b>
+🧾 Ma'lumoti: <b>${data.education}</b>
+👪 Oilaviy holati: <b>${data.marital_status}</b>
+
+<i>Farzandlar soni ${data.children_list ? data.children_list.length : 0} nafar</i>
+    `
+
+    await ctx.api.sendMessage(General_Id, anketa_text, {
+        parse_mode: "HTML"
+    })
+    await picture_notefication(ctx, data.picture[1].file_id, data.full_name, data.birthday, 'candidate', 0)
+    await picture_notefication(ctx, data.pasport[1].file_id, data.full_name, data.birthday, 'candidate', 0)
+    if (data.husband_woman) {
+        await picture_notefication(ctx, data.husband_woman.picture[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
+        await picture_notefication(ctx, data.husband_woman.pasport[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
+    }
+
+    if (data.children_list?.length > 0) {
+        for (let i = 0; i < data.children_list.length; i++) {
+            let child = data.children_list[i];
+            await picture_notefication(ctx, child.picture[1].file_id, child.fullname, child.birthday, 'child', child.number);
+            await picture_notefication(ctx, child.pasport[1].file_id, child.fullname, child.birthday, 'child', child.number);
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -159,6 +274,22 @@ async function register_anketa_conversation(conversation, ctx) {
 
     let pasport = ctx.message.photo;
     conversation.session.session_db.condidate.pasport = ctx.message.photo
+    
+      // country_uz
+      await ctx.reply(ctx.t("country_text"), {
+        parse_mode: "HTML"
+    })
+    ctx = await conversation.wait();
+    if (!ctx.message?.text) {
+        do {
+            await ctx.reply(ctx.t("country_error_text"), {
+                parse_mode: "HTML",
+            });
+            ctx = await conversation.wait();
+        } while (!ctx.message?.text);
+    }
+    let country = ctx.message.text;
+    conversation.session.session_db.condidate.birth_adress = ctx.message.text
 
 
     // adress uz
@@ -179,23 +310,6 @@ async function register_anketa_conversation(conversation, ctx) {
 
     let adress_uz = ctx.message.text;
     conversation.session.session_db.condidate.live_adress = ctx.message.text
-
-
-    // country
-    await ctx.reply(ctx.t("country_text"), {
-        parse_mode: "HTML"
-    })
-    ctx = await conversation.wait();
-    if (!ctx.message?.text) {
-        do {
-            await ctx.reply(ctx.t("country_error_text"), {
-                parse_mode: "HTML",
-            });
-            ctx = await conversation.wait();
-        } while (!ctx.message?.text);
-    }
-    let country = ctx.message.text;
-    conversation.session.session_db.condidate.birth_adress = ctx.message.text
 
     // Phone number
     await ctx.reply(ctx.t("phone_number_text"), {
@@ -287,8 +401,8 @@ async function register_anketa_conversation(conversation, ctx) {
 async function send_paymentcheck_conversation(conversation, ctx) {
 
     let abort_action_btn = new Keyboard()
-    .text(ctx.t("cancel_action_btn_text"))
-    .resized();
+        .text(ctx.t("cancel_action_btn_text"))
+        .resized();
 
     if (!conversation.session.session_db.selected_check) {
         await ctx.reply(ctx.t("reaction_text"), {
@@ -300,7 +414,7 @@ async function send_paymentcheck_conversation(conversation, ctx) {
 
     await ctx.reply(ctx.t("check_number_picture_text"), {
         parse_mode: "HTML",
-        reply_markup:abort_action_btn
+        reply_markup: abort_action_btn
     })
 
     ctx = await conversation.wait();
@@ -314,14 +428,26 @@ async function send_paymentcheck_conversation(conversation, ctx) {
     }
 
     let check_picture = ctx.message.photo;
-    console.log(check_picture);
 
-    await ctx.reply(ctx.t("success_check_text"), {
-        parse_mode:"HTML"
-    });
-    const check_number = ctx.session.session_db.selected_check.order_number;
+    const check_payment = ctx.session.session_db.selected_check;
+    if (check_payment) {
+        let data = {
+            order_id: check_payment._id,
+            client_id: ctx.from.id,
+            payment_picture: check_picture
+        };
+
+        await ctx.reply(ctx.t("success_check_text"), {
+            parse_mode: "HTML"
+        });
+        await register_payment(data);
+        await notefication_payment(ctx, check_picture[1].file_id, check_payment.order_number)
+
+    } else {
+        await ctx.reply(ctx.t("reaction_text"))
+    }
     await ctx.conversation.enter("menu_conversation");
-  
+
 
 };
 
@@ -518,6 +644,8 @@ const anketa_list = async (ctx) => {
     let candidate = ctx.session.session_db.condidate;
     let hw = ctx.session.session_db.husband_woman;
     let children_list = ctx.session.session_db.children_list;
+
+
     let candidate_text = `
 <b>📌 Anketadagi tekshiring va barcha ma'lumotlaringiz to'g'riligiga ishonch hosil qiling!</b>
 <i>Barcha ma'lumotlar to'g'ri bo'lgan holatda <b>✅ Tasdiqlash</b> tugmasini bosing.</i>
@@ -567,10 +695,20 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
         candidate_text = candidate_text + children_text
     }
 
+
+
+
+
+
+
     await ctx.reply(candidate_text, {
         parse_mode: "HTML",
         reply_markup: anketa_keyboard
     })
+
+
+
+
 }
 
 // clear session data of user
@@ -687,7 +825,9 @@ pm.command("change_language", async (ctx) => {
 
 
 
-
+// bot.chatType("channel").on("msg", async(ctx)=>{
+//     console.log(ctx.msg);
+// })
 
 
 
@@ -715,6 +855,10 @@ bot.filter(hears("refull_anketa_btn_text"), async (ctx) => {
     await clear_seasion_data(ctx)
     await ctx.conversation.enter("register_anketa_conversation");
 });
+
+
+
+
 bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
     let candidate = ctx.session.session_db.condidate;
     let hw = ctx.session.session_db.husband_woman;
@@ -735,7 +879,6 @@ bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
             education: candidate.education,
             marital_status: candidate.marital_status,
         }
-        console.log(candidate.marital_status == ctx.t("marital_2"));
         if (candidate.marital_status == ctx.t("marital_2")) {
             data.husband_woman = hw
         }
@@ -744,19 +887,18 @@ bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
             data.children_list = children_list
         }
 
-        console.log(data);
-        let order = await register_order(data);
-        console.log(order);
 
+        let order = await register_order(data);
         await ctx.reply(ctx.t("payment_ticket_text", {
             order_number: order.order_number,
             order_date: order.created_at,
-            service_price: '100 000',
-            card_number: '5614681401907245',
-            card_owner: "Jamshid Raximov Shuxrat o'g'li",
+            service_price: SERVICE_PRICE,
+            card_number: CARD_NUMBER,
+            card_owner: CARD_OWNER,
         }), {
             parse_mode: "HTML"
         })
+        await data_sender(ctx, data)
         await ctx.conversation.enter("menu_conversation");
 
 
@@ -768,6 +910,16 @@ bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
     }
 
 });
+
+
+
+
+
+
+
+
+
+
 
 bot.filter(hears("guid_btn_text"), async (ctx) => {
     await ctx.reply("Tez orada qo'shiladi qo'llanma...")
@@ -804,22 +956,23 @@ bot.filter(hears("ticket_payment_btn_text"), async (ctx) => {
     })
 });
 
-const status_text = (active, payment, finished) => {
+const status_text = (active, payment, finished, lang) => {
     if (!active) {
-        return "Rad etilgan ❌"
+        return lang == 'uz' ? "Rad etilgan ❌" : "Отклонено ❌"
     } else if (!payment) {
-        return "To'lov kutilmoqda ⏳"
+        return lang == 'uz' ? "To'lov kutilmoqda ⏳" : "Ожидается оплата ⏳"
     } else if (!finished) {
-        return "Bajarilishi kutilmoqda ⏳"
+        return lang == 'uz' ? "Bajarilishi kutilmoqda ⏳" : "Жду завершения ⏳"
     } else if (finished) {
-        return "Ro'yhatga olindi ✅"
+        return lang == 'uz' ? "Ro'yhatga olindi ✅" : " Зарегистрирован ✅"
     }
 
 }
 
 bot.filter(hears("my_anketa_btn_text"), async (ctx) => {
+    let lang = await ctx.i18n.getLocale();
     let orders = await my_orders(ctx.from.id);
-    if (orders.length > 0) {
+    if (orders.length > 0 && lang == 'uz') {
         let my_order_text = `<b>📨 Mening anketalarim</b>`
 
         for (let i = 0; i < orders.length; i++) {
@@ -829,7 +982,7 @@ bot.filter(hears("my_anketa_btn_text"), async (ctx) => {
 ✉️ Anketa raqami: <b>${anketa.order_number}</b>
 🕤 Anketa sanasi: <b>${new Date(anketa.created_at).toLocaleString()}</b>
 💰 To'lov holati: <b>${anketa.is_payment ? "To'lov qilingan ✅" : "To'lov qilinmagan ❌"}</b>
-📌 Anketa holati: <b>${status_text(anketa.active, anketa.is_payment, anketa.is_finished)}</b>
+📌 Anketa holati: <b>${status_text(anketa.active, anketa.is_payment, anketa.is_finished, lang)}</b>
 📍 Sababi: <b>${anketa.ban_reason || ''}</b>`
             my_order_text = my_order_text + text
         }
@@ -838,18 +991,34 @@ bot.filter(hears("my_anketa_btn_text"), async (ctx) => {
         await ctx.reply(my_order_text, {
             parse_mode: "HTML"
         })
-    } else {
+    } else if (orders.length > 0 && lang == 'ru') {
+
+        let my_order_text = `<b>📨 Мои анкеты</b>`
+
+        for (let i = 0; i < orders.length; i++) {
+            let anketa = orders[i];
+            let text = `
+
+✉️ Номер заявления: <b>${anketa.order_number}</b>
+🕤 Дата подачи документов: <b>${new Date(anketa.created_at).toLocaleString()}</b>
+💰 Статус платежа: <b>${anketa.is_payment ? "Оплаченный ✅" : "Не оплачен ❌"}</b>
+📌 Статус анкеты: <b>${status_text(anketa.active, anketa.is_payment, anketa.is_finished, lang)}</b>
+📍 Причина: <b>${anketa.ban_reason || ''}</b>`
+            my_order_text = my_order_text + text
+        }
+
+
+        await ctx.reply(my_order_text, {
+            parse_mode: "HTML"
+        })
+
+    }
+    else {
         await ctx.reply(ctx.t("no_anketa_text"), {
             parse_mode: "HTML"
         })
     }
 });
-
-
-
-
-
-
 
 
 

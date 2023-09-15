@@ -4,7 +4,7 @@ const { I18n, hears } = require("@grammyjs/i18n");
 const {
     conversations,
 } = require("@grammyjs/conversations");
-const { check_user, register_user, remove_user, set_user_lang } = require("../controllers/userController");
+const {remove_user } = require("../controllers/userController");
 
 
 const config_bot = new Composer();
@@ -52,8 +52,8 @@ config_bot.use(session({
     conversation: {},
     __language_code: {},
 }));
-
 config_bot.use(conversations());
+
 
 config_bot.on("my_chat_member", async (ctx) => {
     if (ctx.update.my_chat_member.new_chat_member.status == "kicked") {
@@ -68,6 +68,7 @@ config_bot.on("my_chat_member", async (ctx) => {
 
 config_bot.use(async (ctx, next) => {
     let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child")]
+
     if (permission_list.includes(ctx.message?.text)) {
         const stats = await ctx.conversation.active();
         for (let key of Object.keys(stats)) {

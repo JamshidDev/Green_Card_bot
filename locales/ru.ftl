@@ -4,234 +4,241 @@ language_uz =🇺🇿 Узбекский язык
 
 language_ru =🇷🇺 Русский язык
 
-cancel_action_btn_text = 🔴 Bekor qilish
+cancel_action_btn_text = 🔴 Отмена
 
-confirm_anketa_btn_text = ✅ Tasdiqlash
+confirm_anketa_btn_text = ✅ Подтверждение
 
-refull_anketa_btn_text = 🔄 Qayta to'ldirish
-
-
-
-service_info = Assalomu alaykum! Biz sizga ko’pchilikning orzusi bo’lgan Amerikada yashash va ishlash uchun <b>(Green card.Грин карта.)</b> lotoreyasini qo’lga kiritishingizda yordam beramiz! 
-
-     Green Card lotereyasi nima? Bu viza lotereyasi, unda ishtirok etish uchun siz maxsus anketani to'ldirishingiz kerak.
-     Anketangizni ishonchli va xatolarsiz to’ldiramiz. O’yinga qatnashishingiz 100% kafolatlanadi. 
-     Uydan chiqib sarson bo’lishingizga bundan tashqari soatlab navbat kutishingizga aslo xojat yo’q.
-     Hammasi juda oddiy, siz shunchaki kerakli ma’lumotlarni videoqo’llanmada ko’rsatilgandek to’g’ri va xatolarsiz to’ldirishingiz kifoya.
-     <i> Bor yog’i 100 000 so’m.</i>
-
-register_btn_text = ✉️ Anketa to'ldirish
-
-my_anketa_btn_text = 📨 Anketalarim
-
-call_center_btn_text = ☎️ Kontaktlar
-
-guid_btn_text = 📘 Qo'llanma
-
-ticket_payment_btn_text = 📑 Chek yuborish
-
-warning_data_text = <b>⚠️ Eslatma</b>
-
-     <i>Iltimos ma'lumotlarni to'liq va aniq holatda ko'rsatilgandek to'ldiring!</i>
+refull_anketa_btn_text = 🔄 Пополнение
 
 
-fullname_text = ✍️ Ism sharifingizni yozing!
 
-     <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
+service_info =Привет! Мы поможем Вам выиграть в лотерею <b>(Зеленая карта. Зеленая карта.)</b> и жить и работать в Америке, о чем мечтают многие!
 
-fullname_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+      Что такое лотерея Грин Кард? Это визовая лотерея, для участия в которой необходимо заполнить специальную форму.
+      Мы заполним вашу заявку достоверно и без ошибок. Ваше участие в игре гарантировано на 100%.
+      Вам не нужно часами стоять в очереди, чтобы выйти из дома.
+      Все очень просто, вам нужно лишь правильно и без ошибок заполнить необходимую информацию, как показано в видео-руководстве.
+      Борное масло 100 000 сум.
 
-     <i>✍️ Ism sharifingizni yozing</i>
-     <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
+register_btn_text = ✉️ Заполнение анкеты
 
-birthdate_text =✍️ Tug'ilgan sanangizni yozing!
+my_anketa_btn_text = 📨 Мои анкеты
 
-     <i>Masalan: <b>02.07.2001</b></i>
+call_center_btn_text = ☎️ Контакты
 
-birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+guid_btn_text = 📘 Руководство
 
-     <i>✍️ Tug'ilgan sanangizni yozing!</i>
-     <i>Masalan: <b>02.07.2001</b></i>
+ticket_payment_btn_text =📑 Отправьте чек
 
-picture_text =✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!
+warning_data_text =<b>⚠️ Примечание</b>
 
-picture_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
+      <i>Пожалуйста, заполните информацию полностью и точно, как показано!</i>
 
-     <i>✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
 
-pasport_text =✍️ Pasportingiz rasmini yuboring!
+fullname_text = ✍️ Напишите свое имя!
 
-pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
+     <i>Например: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
 
-     <i>✍️ Pasportingiz rasmini yuboring!</i>
+fullname_error_text =⚠️ Введена неверная информация!
 
-uz_adress_text = ✍️ O'zbekistondagi to'liq yashash manzilingizni yozing!
+     <i>✍️ Напишите свое имя!</i>
+     <i>Например: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
 
-      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+birthdate_text =✍️Напишите дату своего рождения!
 
-uz_adress_error_text = ⚠️ Noto'g'ri ma'lumot yozing!
+     <i>Например: <b>02.07.2001</b></i>
 
-     <i>✍️ O'zbekistondagi to'liq yashash manzilingizni yozing!</i>
-     <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+birthdate_error_text = ⚠️ Введена неверная информация!
 
-country_text = ✍️ Tug'ulgan manzilingizni to'liq yozing!
+     <i>✍️Напишите дату своего рождения!</i>
+     <i>Например: <b>02.07.2001</b></i>
+
+picture_text =✍️ Присылайте свою фотографию 6х6, сделанную в фотостудии!
+
+picture_error_text =⚠️ Введена неверная информация!
+
+     <i>✍️ Присылайте свою фотографию 6х6, сделанную в фотостудии!</i>
+
+pasport_text =✍️ Присылайте фото на паспорт!
+
+pasport_error_text =⚠️ Введена неверная информаци
+
+     <i>✍️ Присылайте фото на паспорт!</i>
+
+uz_adress_text = ✍️ Напишите свой текущий адрес полностью!
+
+      <i>Например: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+
+uz_adress_error_text = ⚠️ Введена неверная информаци
+
+     <i>✍️ Напишите свой текущий адрес полностью!</i>
+     <i>Например: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+
+country_text = ✍️ Напишите полный адрес рождения!
       
-       <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+       <i>Например: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
-country_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+country_error_text = ⚠️ Введена неверная информаци
 
-     <i>✍️ Tug'ulgan manzilingizni to'liq yozing!</i>
-      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+     <i>✍️ Напишите полный адрес рождения!</i>
+      <i>Например: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
-phone_number_text = ✍️ Telefon raqamingizni yozing!
-      <i>Masalan: <b>+998xx xxxx xx xx</b></i>
+phone_number_text = ✍️ Напишите свой номер телефона!
+      <i>Например: <b>+998xx xxxx xx xx</b></i>
 
-phone_number_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+phone_number_error_text = ⚠️ Введена неверная информаци
 
-     <i> ✍️ Telefon raqamingizni yozing!</i>
-     <i>Masalan: <b>+998xx xxxx xx xx</b></i>
+     <i> ✍️ Напишите свой номер телефона!</i>
+     <i>Например: <b>+998xx xxxx xx xx</b></i>
 
-aducation_text = 👇 Ta'lim darajangizni tanlang!
+aducation_text = 👇 Выберите свой уровень образования!
 
-      <i>Tugmalar orqali tanlang</i>
+      <i>Выбрать кнопками</i>
 
-aducation_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+aducation_error_text = ⚠️ Введена неверная информаци
 
-     <i>👇 Ta'lim darajangizni tanlang!</i>
-      <i>Tugmalar orqali tanlang</i>
+     <i>👇 Выберите свой уровень образования!</i>
+      <i>Выбрать кнопками</i>
 
-marital_status_text = 👇 Oilaviy holatingiz tanlang!
+marital_status_text = 👇 Выберите свое семейное положение!
 
-     <i>Tugmalar orqali tanlang</i>
+     <i>Выбрать кнопками</i>
 
-marital_status_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+marital_status_error_text =⚠️ Введена неверная информаци
 
-     <i>👇 Oilaviy holatingiz tanlang!</i>
-      <i>Tugmalar orqali tanlang</i>
+     <i>👇 Выберите свое семейное положение!</i>
+     <i>Выбрать кнопками</i>
 
-main_menu_btn_text =⚡️ Asosiy menu ⚡️
+main_menu_btn_text =⚡️ Главное меню ⚡️
 
-education_1 = O'rta maktab va sertifikat olgan
+education_1 = Средняя школа и получил сертификат
 
-education_2 = Bakalavr diplomi
+education_2 = Степень бакалавра
 
-education_3 = Magistr diplomi
+education_3 = Степень магистра
 
-education_4 = Doktorantura
+education_4 = докторская степень
 
-marital_1 = Uylanmagan/Turmushga chiqmagan
+marital_1 = Не замужем | не женат
 
-marital_2 = Uylangan/Turmushga chiqgan
+marital_2 = Замужем | Женат
 
-marital_3 = Ajrashgan
+marital_3 = Разведен(а)
 
-marital_4 = Beva
+marital_4 = Вдова | Вдовец
 
-no_have_child = Farzandim yo'q
+no_have_child = у меня нет ребенка
 
-children_count_text =21 yoshga to'lmagan farzandlaringiz sonini kiriting!
+children_count_text =Введите количество ваших детей в возрасте до 21 года!
 
-     <i>Masalan: <b>1; 2; 3;</b></i>
-     <i>Agar 21 yoshga to'lmagan  farzandingiz yo'q bo'lsa <b>Farzandim yo'q</b> tugmasini bosing</i>
+     <i>Например: <b>1; 2; 3;</b></i>
+     <i>Если у вас нет детей до 21 года, нажмите <b>у меня нет ребенка</b></i>
 
-children_count_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+children_count_error_text = ⚠️ Введена неверная информаци
 
-     Farzandlaringiz sonini kiriting!
-     <i>Masalan: <b>1; 2; 3;</b></i>
-     <i>Agar farzandingiz yo'q bo'lsa <b>Farzandsizman</b> tugmasini bosing</i>
+     Введите количество ваших детей в возрасте до 21 года!
+     <i>Например: <b>1; 2; 3;</b></i>
+     <i>Если у вас нет детей до 21 года, нажмите <b>у меня нет ребенка</b></i>
 
 
-child_fullname_text =  {$number} - Farzandingizni ism familiyasini kiriting!
+child_fullname_text =  {$number} - Введите имя и фамилию вашего ребенка!
 
-      <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
+      <i>Например: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
 
-child_fullname_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+child_fullname_error_text = ⚠️ Введена неверная информаци
 
-      <i>{$number} - Farzandingizni ism familiyasini kiriting!</i>
-      <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
+      <i>{$number} - Введите имя и фамилию вашего ребенка!</i>
+      <i>Например: <b>Sobirov Jamshid Shuxrat o'g'li</b></i>
      
-child_birthday_text =  {$number} - Farzandingizni tug'ulgan sanasini  kiriting!
+child_birthday_text =  {$number} - Введите дату рождения вашего ребенка!
 
-      <i>Masalan: <b>02.07.2000</b></i>
+      <i>Например: <b>02.07.2000</b></i>
 
-child_birthday_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+child_birthday_error_text = ⚠️ Введена неверная информаци
 
-      <i>{$number} - Farzandingizni tug'ulgan sanasini  kiriting!</i>
-      <i>Masalan: <b>02.07.2000</b></i>
+      <i>{$number} - Введите дату рождения вашего ребенка!</i>
+      <i>Например: <b>02.07.2000</b></i>
 
-child_picture_text =  {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!
+child_picture_text =  {$number} - Отправьте в фотостудию фотографию вашего ребенка размером 6х6!
 
-child_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+child_picture_error_text = ⚠️ Введена неверная информаци
 
-      <i> {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
+      <i> {$number} - Отправьте в фотостудию фотографию вашего ребенка размером 6х6!</i>
      
-child_pasport_text =  {$number} - Farzandingizni pasport yoki meterkasini rasmini yuboring!
+child_pasport_text =  {$number} - Отправьте фотографию паспорта или удостоверения личности вашего ребенка!
 
-child_pasport_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+child_pasport_error_text = ⚠️ Введена неверная информаци
 
-      <i> {$number} - Farzandingizni Farzandingizni pasport yoki meterkasini rasmini yuboring!</i>
+      <i> {$number} - Отправьте фотографию паспорта или удостоверения личности вашего ребенка!</i>
      
  
-hw_fullname_text = ✍️ Eringiz/Ayolingiz ism sharifini kiriting!
+hw_fullname_text = ✍️ Введите имя и фамилию мужа/жены!
 
-     <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li/ Sobirova Anora Yo'ldash qizi</b></i>
+     <i>Например: <b>Sobirov Jamshid Shuxrat o'g'li/ Sobirova Anora Yo'ldash qizi</b></i>
 
-hw_fullanme_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
+hw_fullanme_error_text = ⚠️ Введена неверная информаци
 
-     <i>✍️ Eringiz/Ayolingiz ism sharifini kiriting!</i>
-     <i>Masalan: <b>Sobirov Jamshid Shuxrat o'g'li/Sobirova Anora Yo'ldash qizi</b></i>
-
-
-hw_birthdate_text =✍️ Eringiz/Ayolingiz tug'ilgan sanasini kiriting!
-
-     <i>Masalan: <b>02.07.1996</b></i>
-
-hw_birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
-
-     <i>✍️ Eringiz/Ayolingiz tug'ilgan sanasini kiriting!</i>
-      <i>Masalan: <b>02.07.1996</b></i>
-
-hw_picture_text =✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!
-
-hw_picture_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
-
-     <i>✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!</i>
-
-hw_pasport_text =✍️ Eringiz/Ayolingiz pasport rasmini yuboring!
-
-hw_pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
-
-     <i>✍️ Eringiz/Ayolingiz pasport rasmini yuboring!</i>
-
-expire_message_text = <b>⚠️ Eskirgan xabar!</b>
-
-     <i>Iltimos qayta anketa to'ldiring!</i>
-
-reaction_text = <b>⚠️ Eskirgan xabar!</b>
-
-     <i>Iltimos amalni qayta takrorlang!</i>
-
-payment_ticket_text = ✅ Sizning <b>Green Card</b> uchun  to'ldirgan anketangiz qabul qilindi.
-
-     📨 Buyurtma raqami: <b>{$order_number}</b>
-     🕤 Buyurtma sanasi: <b>{$order_date}</b>
-     💰 To'lov summasi: <b>{$service_price} so'm</b>
-     <i>💳 Karta raqami: <b>{$card_number}</b></i>
-     <i>👤 Karta egasi: <b>{$card_owner}</b></i>
-
-     <i>Yuqorida keltirilgan karta raqamga to'lovni amalga oshiring va <b>📑 Chek yuborish</b> tugmasi orqali to'lov chekini yuboring</i>
-  
+     <i>✍️ Введите имя и фамилию мужа/жены!</i>
+     <i>Например: <b>Sobirov Jamshid Shuxrat o'g'li/Sobirova Anora Yo'ldash qizi</b></i>
 
 
-contact_phone_text = <b>Bog'lanish uchun raqamlar</b>
+hw_birthdate_text =✍️ Введите дату рождения мужа/жены!
 
-     <b>🔍 Savol va murojatlar uchun raqamlar</b>
-     <i>☎️ Call markaz: <b> +998 (99) 140-09-99</b></i>
-     <i>☎️ Qo'shimcha raqam: <b> +998 (99) 140-09-99</b></i>
+     <i>Например: <b>02.07.1996</b></i>
+
+hw_birthdate_error_text =  ⚠️ Введена неверная информаци
+
+     <i>✍️ Введите дату рождения мужа/жены!</i>
+      <i>Например: <b>02.07.1996</b></i>
+
+hw_picture_text =✍️ Отправьте фотографию мужа/жены размером 6х6, сделанную в фотостудии!
+
+hw_picture_error_text =⚠️ Введена неверная информаци
+
+     <i>✍️ Отправьте фотографию мужа/жены размером 6х6, сделанную в фотостудии!</i>
+
+hw_pasport_text =✍️ Пришлите фото мужа/жены на паспорт!
+
+hw_pasport_error_text =⚠️ Введена неверная информаци
+
+     <i>✍️ Пришлите фото мужа/жены на паспорт!</i>
+
+expire_message_text = <b>⚠️ Сообщение устарело!</b>
+
+      <i>Пожалуйста, заполните форму еще раз!</i>
+
+reaction_text = <b>⚠️ Сообщение устарело!</b>
+
+      <i>Пожалуйста, попробуйте еще раз!</i>
+
+payment_ticket_text = ✅ Ваша заявка на <b>Green card</b> принята.
+
+    📨 Номер заявки: <b>{$order_number}</b>
+      🕤 Дата подачи заявки: <b>{$order_date}</b>
+      💰 Сумма платежа: <b>{$service_price} сум</b>
+      <i>💳 Номер карты: <b>{$card_number}</b></i>
+      <i>👤 Владелец карты: <b>{$card_owner}</b></i>
+
+      <i>Совершите платеж на указанный выше номер карты и отправьте чек с помощью кнопки <b>📑Отправить чек</b></i>
+
+
+contact_phone_text = <b>Контактные номера</b>
+
+      <b>🔍 Номера для вопросов и запросов</b>
+      <i>☎️ Колл-центр: <b> +998 (99) 140-09-99</b></i>
+      <i>☎️ Дополнительный номер: <b> +998 (99) 140-09-99</b></i>
 
 no_anketa_text = <i><b>🤷‍♂️ Sizda anketalar yo'q</b></i>
 
-check_order_send_text = <b>📑 Chek yuborish</b>
+check_order_send_text = <b>📑Отправить чек</b>
      
-     <i>To'lov qilingan Anketa raqami tanlang</i>
+     <i>☝️ Нажмите на номер платной формы, чтобы отправить чек!</i>
 
+
+check_number_picture_text = <b>Отправьте фотографию квитанции!</b>
+
+check_number_picture_error_text =⚠️Введена неверная информация!
+
+      <i>Отправьте фотографию квитанции!</i>
+
+success_check_text = <b> ✅ Квитанция об оплате отправлена ​​на рассмотрение администратору!</b>

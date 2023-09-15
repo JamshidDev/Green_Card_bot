@@ -65,13 +65,13 @@ pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>✍️ Pasportingiz rasmini yuboring!</i>
 
-uz_adress_text = ✍️ O'zbekistondagi to'liq yashash manzilingizni yozing!
+uz_adress_text = ✍️ Hozirgi yashash manzilingizni to'liq yozing!
 
       <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
 uz_adress_error_text = ⚠️ Noto'g'ri ma'lumot yozing!
 
-     <i>✍️ O'zbekistondagi to'liq yashash manzilingizni yozing!</i>
+     <i>✍️ Hozirgi yashash manzilingizni to'liq yozing!</i>
      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
 
 country_text = ✍️ Tug'ulgan manzilingizni to'liq yozing!
@@ -165,7 +165,7 @@ child_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
       <i> {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
      
-child_pasport_text =  {$number} - Farzandingizni pasport yoki meterkasini rasmini yuboring!
+child_pasport_text =  {$number} - Farzandingizni pasport yoki metrikasini rasmini yuboring!
 
 child_pasport_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
@@ -233,7 +233,7 @@ no_anketa_text = <i><b>🤷‍♂️ Sizda anketalar yo'q</b></i>
 
 check_order_send_text = <b>📑 Chek yuborish</b>
      
-     <i>To'lov qilingan Anketa raqami tanlang</i>
+     <i>☝️ Chekni yuborish uchun to'lov qilingan Anketa raqamini ustiga bosing!</i>
 
 check_number_picture_text = <b>To'lov chekini rasmini yuboring!</b>
 
