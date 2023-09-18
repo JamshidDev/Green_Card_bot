@@ -12,7 +12,7 @@ const admin_bot = require("./modules/adminModules")
 const {config_bot} = require("./modules/configModules")
 
 const bot_token = process.env.BOT_TOKEN;
-
+const ERROR_CHANNEL_ID = -1001881609984;
 
 
 
@@ -26,6 +26,9 @@ bot.use(config_bot)
 bot.use(client_bot)
 bot.use(admin_bot)
 
+bot.on("msg", async(ctx)=>{
+    console.log(ctx.msg);
+})
 
 bot.chatType("private").filter(async(ctx)=>{
     return ctx.config.client
@@ -50,6 +53,14 @@ bot.catch((err) => {
         level: 'error',
         message: message
     });
+
+    bot.api.sendMessage(ERROR_CHANNEL_ID,`
+ <b>⚠️ Error Notefication</b>
+ 
+ <b>Error message: <i>${message}</i></b>
+    `, {
+        parse_mode:"HTML"
+    })
 });
 
 

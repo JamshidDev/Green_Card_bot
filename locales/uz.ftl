@@ -258,4 +258,4 @@ confirmation_code_text = <b>Ro'yhatdan o'tkazildi</b>
 
      Anketa raqami: <b>{$order_number}</b>
      Kandidat: <b>{$full_name}</b>
-     Confiration kod: <b>{$code}</b>
+     Confirmation kod: <b>{$code}</b>

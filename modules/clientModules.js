@@ -15,8 +15,8 @@ const { register_payment } = require("../controllers/paymentController")
 
 
 // Environments variables
-const Payment_Id = process.env.PAYMENT_ID;
-const General_Id = process.env.GENERAL_ID;
+const Payment_Id = -1001936916433;
+const General_Id = -1001916750534;
 
 
 // Payment card details
