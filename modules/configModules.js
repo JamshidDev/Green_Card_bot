@@ -8,6 +8,10 @@ const {remove_user } = require("../controllers/userController");
 
 
 const config_bot = new Composer();
+let SUPER_ADMIN_ID = [];
+let PAYMENT_ADMIN_ID = [1038293334];
+let WORKER_ADMINS = [5604998397];
+
 
 const i18n = new I18n({
     defaultLocale: "uz",
@@ -17,7 +21,7 @@ const i18n = new I18n({
         return { first_name: ctx.from?.first_name ?? "" };
     },
 });
-config_bot.use(i18n);
+
 
 
 config_bot.use(session({
@@ -44,6 +48,9 @@ config_bot.use(session({
                     pasport: null,
                 },
                 selected_check:null,
+                selected_payment_order:null,
+                selected_payment_check:null,
+                order_details:null,
             }
         },
         storage: new MemorySessionStorage(),
@@ -52,7 +59,9 @@ config_bot.use(session({
     conversation: {},
     __language_code: {},
 }));
+config_bot.use(i18n);
 config_bot.use(conversations());
+
 
 
 config_bot.on("my_chat_member", async (ctx) => {
@@ -67,8 +76,9 @@ config_bot.on("my_chat_member", async (ctx) => {
 });
 
 config_bot.use(async (ctx, next) => {
-    let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child")]
-
+    let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child"), "✅ Ro'yhatga olish"]
+    // let lang = await ctx.i18n.getLocale();
+    // console.log(lang);
     if (permission_list.includes(ctx.message?.text)) {
         const stats = await ctx.conversation.active();
         for (let key of Object.keys(stats)) {
@@ -76,7 +86,10 @@ config_bot.use(async (ctx, next) => {
         }
     }
     ctx.config = {
-        is_admin: true
+        super_admin:  SUPER_ADMIN_ID.includes(ctx.from?.id), 
+        payment_admin:  PAYMENT_ADMIN_ID.includes(ctx.from?.id), 
+        worker_admin: WORKER_ADMINS.includes(ctx.from?.id),
+        client:!(SUPER_ADMIN_ID.includes(ctx.from?.id) || PAYMENT_ADMIN_ID.includes(ctx.from?.id) || WORKER_ADMINS.includes(ctx.from?.id)),
     }
     await next()
 })

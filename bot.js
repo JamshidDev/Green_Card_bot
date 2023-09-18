@@ -8,6 +8,7 @@ const { check_user,register_user, remove_user, set_user_lang } = require("./cont
 
 
 const client_bot = require("./modules/clientModules");
+const admin_bot = require("./modules/adminModules")
 const {config_bot} = require("./modules/configModules")
 
 const bot_token = process.env.BOT_TOKEN;
@@ -23,14 +24,20 @@ const bot = new Bot(bot_token);
 bot.use(config_bot)
 
 bot.use(client_bot)
+bot.use(admin_bot)
 
 
-bot.chatType("private").use(async(ctx, next)=>{
+bot.chatType("private").filter(async(ctx)=>{
+    return ctx.config.client
+}).use(async(ctx, next)=>{
     let user = await check_user(ctx.from?.id);
     if(user){
         await ctx.i18n.setLocale(user.lang);
+    }else{
+        await ctx.i18n.setLocale("uz");
     }
     await ctx.conversation.enter("menu_conversation");
+    
     next()
 })
 

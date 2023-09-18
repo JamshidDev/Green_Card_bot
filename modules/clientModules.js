@@ -274,9 +274,9 @@ async function register_anketa_conversation(conversation, ctx) {
 
     let pasport = ctx.message.photo;
     conversation.session.session_db.condidate.pasport = ctx.message.photo
-    
-      // country_uz
-      await ctx.reply(ctx.t("country_text"), {
+
+    // country_uz
+    await ctx.reply(ctx.t("country_text"), {
         parse_mode: "HTML"
     })
     ctx = await conversation.wait();
@@ -644,67 +644,128 @@ const anketa_list = async (ctx) => {
     let candidate = ctx.session.session_db.condidate;
     let hw = ctx.session.session_db.husband_woman;
     let children_list = ctx.session.session_db.children_list;
+    let lang = await ctx.i18n.getLocale();
+    if(lang == 'uz'){
 
-
-    let candidate_text = `
+        let candidate_text = `
 <b>📌 Anketadagi tekshiring va barcha ma'lumotlaringiz to'g'riligiga ishonch hosil qiling!</b>
 <i>Barcha ma'lumotlar to'g'ri bo'lgan holatda <b>✅ Tasdiqlash</b> tugmasini bosing.</i>
 <i>Ma'lumotlarda qandaydir xatolik bo'lsa <b>🔄 Qayta to'ldirish</b> tugmasini bosing.</i>
-
+        
 F .I .SH: <b>${candidate.fullname}</b>
 Tug'ilgan sana: <b>${candidate.birthday}</b>
-Rasm: <b>${candidate.picture.length > 0 ? 'Bor' : "Yo'q"}</b>
+ Rasm: <b>${candidate.picture.length > 0 ? 'Bor' : "Yo'q"}</b>
 Pasport rasmi: <b>${candidate.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
 Yashash manzil: <b>${candidate.live_adress}</b>
 Tug'ilgan manzil: <b>${candidate.birth_adress}</b>
 Telefon raqam: <b>${candidate.phone}</b>
 Ma'lumoti: <b>${candidate.education}</b>
 Oilaviy holati: <b>${candidate.marital_status}</b>`
-
-    if (candidate.marital_status == ctx.t("marital_2")) {
-        let hw_text = `
-
+        
+            if (candidate.marital_status == ctx.t("marital_2")) {
+                let hw_text = `
+        
 <b>👬 Eri/Ayoli</b>
 F .I .SH: <b>${hw.fullname}</b>
 Tug'ilgan sana: <b>${hw.birthday}</b>
 Rasm: <b>${hw.picture.length > 0 ? 'Bor' : "Yo'q"}</b>
 Pasport rasmi: <b>${hw.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
-    `
-        candidate_text = candidate_text + hw_text;
-    }
-
-    if (children_list.length > 0) {
-        let children_count = children_list.length;
-        let children_text = `
+            `
+                candidate_text = candidate_text + hw_text;
+            }
+        
+            if (children_list.length > 0) {
+                let children_count = children_list.length;
+                let children_text = `
 <b>👨‍👧‍👦 Farzandlar soni - ${children_count} nafar</b>`
-        for (let son = 0; son < children_count; son++) {
-            let sont_details = `
+                for (let son = 0; son < children_count; son++) {
+                    let sont_details = `
 <i>${children_list[son].number} - Farzand</i>
 F .I .SH: <b>${children_list[son].fullname}</b>
 Tug'ilgan sana: <b>${children_list[son].birthday}</b>
 Rasm: <b>${children_list[son].picture.length > 0 ? 'Bor' : "Yo'q"}</b>
 Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
-            children_text = children_text + sont_details
-        }
-        candidate_text = candidate_text + children_text;
-
-    } else {
-        let children_text = `
+                    children_text = children_text + sont_details
+                }
+                candidate_text = candidate_text + children_text;
+        
+            } else {
+                let children_text = `
 <b>👨‍👧‍👦 Farzandlar</b>
 <i> 21 yoshga to'lmagan farzandlarim yo'q</i>`
-        candidate_text = candidate_text + children_text
+                candidate_text = candidate_text + children_text
+            }
+            await ctx.reply(candidate_text, {
+                parse_mode: "HTML",
+                reply_markup: anketa_keyboard
+            })
+
+    }else{
+        let candidate_text = `
+<b>📌 Проверьте форму и убедитесь, что вся введенная вами информация верна!</b>
+<i>Если вся информация верна, нажмите <b> ✅ Подтверждение</b>.</i>
+<i>Если в данных есть ошибка, нажмите кнопку <b>🔄 Пополнение</b>.</i>
+        
+Ф .И .Ш: <b>${candidate.fullname}</b>
+Дата рождения: <b>${candidate.birthday}</b>
+Фото: <b>${candidate.picture.length > 0 ? 'Есть' : "Нет"}</b>
+Фото на паспорт: <b>${candidate.pasport.length > 0 ? 'Есть' : "Нет"}</b>
+Адрес проживания: <b>${candidate.live_adress}</b>
+Адрес рождения: <b>${candidate.birth_adress}</b>
+Номер телефона: <b>${candidate.phone}</b>
+Информация: <b>${candidate.education}</b>
+Семейное положение: <b>${candidate.marital_status}</b>`
+        
+            if (candidate.marital_status == ctx.t("marital_2")) {
+                let hw_text = `
+        
+<b>👬 Муж/Жена</b>
+Ф .И .Ш: <b>${hw.fullname}</b>
+Дата рождения: <b>${hw.birthday}</b>
+Фото: <b>${hw.picture.length > 0 ? 'Есть' : "Нет"}</b>
+Фото на паспорт: <b>${hw.pasport.length > 0 ? 'Есть' : "Нет"}</b>
+            `
+                candidate_text = candidate_text + hw_text;
+            }
+        
+            if (children_list.length > 0) {
+                let children_count = children_list.length;
+                let children_text = `
+<b>👨‍👧‍👦 Количество детей: ${children_count}</b>`
+                for (let son = 0; son < children_count; son++) {
+                    let sont_details = `
+<i>${children_list[son].number} - Ребенок</i>
+Ф .И .Ш: <b>${children_list[son].fullname}</b>
+Дата рождения: <b>${children_list[son].birthday}</b>
+Фото: <b>${children_list[son].picture.length > 0 ? 'Есть' : "Нет"}</b>
+Фото на паспорт: <b>${children_list[son].pasport.length > 0 ? 'Есть' : "Нет"}</b>`
+                    children_text = children_text + sont_details
+                }
+                candidate_text = candidate_text + children_text;
+        
+            } else {
+                let children_text = `
+<b>👨‍👧‍👦 Дети</b>
+<i> У меня нет детей младше 21 года.</i>`
+                candidate_text = candidate_text + children_text
+            }
+
+            await ctx.reply(candidate_text, {
+                parse_mode: "HTML",
+                reply_markup: anketa_keyboard
+            })
     }
 
 
+   
 
 
 
 
 
-    await ctx.reply(candidate_text, {
-        parse_mode: "HTML",
-        reply_markup: anketa_keyboard
-    })
+
+
+   
 
 
 
@@ -764,7 +825,9 @@ const language_menu = new Menu("language_menu")
 pm.use(language_menu)
 
 
-pm.command("start", async (ctx) => {
+pm.filter(async(ctx)=>{
+    return ctx.config.client
+}).command("start", async (ctx) => {
     let lang = await ctx.i18n.getLocale();
     if (!i18n.locales.includes(lang)) {
         await ctx.i18n.setLocale("uz");
@@ -808,6 +871,9 @@ pm.command("change_language", async (ctx) => {
 
 
 
+pm.command("my_telegram_id", async(ctx)=>{
+    await ctx.reply("Sizning telegram id: "+ ctx.from.id)
+})
 
 
 
@@ -825,9 +891,6 @@ pm.command("change_language", async (ctx) => {
 
 
 
-// bot.chatType("channel").on("msg", async(ctx)=>{
-//     console.log(ctx.msg);
-// })
 
 
 

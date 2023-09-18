@@ -26,6 +26,10 @@ const paymentSchema = mongoose.Schema({
     reject_comment: {
         type: Boolean,
         default: null,
+    },
+    active:{
+        type: Boolean,
+        default: true,
     }
 }, {
     timestamps: {

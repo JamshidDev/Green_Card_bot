@@ -67,7 +67,7 @@ const order_schema = mongoose.Schema({
     // finished anketa
     is_finished:{
         type:Boolean,
-        default:true
+        default:false
     },
     // ban anketa
     active:{
@@ -78,6 +78,17 @@ const order_schema = mongoose.Schema({
     ban_reason:{
         type:String,
         default:null
+    },
+    // confirmetion text
+    confirmation_text:{
+        type:String,
+        default:null
+
+    },
+    // confirmetion picture
+    confirmation_picture:{
+        type: [Object],
+        default:null,
     },
     // responsible user
     admin_id:{

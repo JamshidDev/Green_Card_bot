@@ -242,3 +242,20 @@ check_number_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
      <i>To'lov chekini rasmini yuboring!</i>
 
 success_check_text = <b>✅ To'lov cheki adminga tekshiruv uchun yuborildi!</b>
+
+reject_payment_check_text =<b>❌ To'lov cheki tasdiqlanmadi</b>
+
+     <i>{$order_number} - raqamli anketa uchun yuborgan to'lov chekingiz tasdiqlanmadi:</i>
+     <i>Ma'lumot uchun Kontakt raqamlarga aloqaga chiqing!</i>
+
+reject_order_text =<b>❌ Anketangiz rad etildi</b>
+
+     <i>{$order_number} - raqamli anketangiz rad etildi</i>
+     <i>Ma'lumot uchun Kontakt raqamlarga aloqaga chiqing!</i>
+
+
+confirmation_code_text = <b>Ro'yhatdan o'tkazildi</b>
+
+     Anketa raqami: <b>{$order_number}</b>
+     Kandidat: <b>{$full_name}</b>
+     Confiration kod: <b>{$code}</b>
