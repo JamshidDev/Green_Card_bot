@@ -13,14 +13,7 @@ let PAYMENT_ADMIN_ID = [1038293334];
 let WORKER_ADMINS = [];
 
 
-const i18n = new I18n({
-    defaultLocale: "uz",
-    useSession: true,
-    directory: "locales",
-    globalTranslationContext(ctx) {
-        return { first_name: ctx.from?.first_name ?? "" };
-    },
-});
+
 
 
 
@@ -59,6 +52,14 @@ config_bot.use(session({
     conversation: {},
     __language_code: {},
 }));
+const i18n = new I18n({
+    defaultLocale: "uz",
+    useSession: true,
+    directory: "locales",
+    globalTranslationContext(ctx) {
+        return { first_name: ctx.from?.first_name ?? "" };
+    },
+});
 config_bot.use(i18n);
 config_bot.use(conversations());
 
@@ -77,7 +78,11 @@ config_bot.on("my_chat_member", async (ctx) => {
 
 config_bot.use(async (ctx, next) => {
     let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child"), "✅ Ro'yhatga olish"]
-    // let lang = await ctx.i18n.getLocale();
+    let lang = await ctx.i18n.getLocale();
+    if(!i18n.locales.includes(lang)){
+        await ctx.i18n.setLocale("uz");
+    }
+    
     // console.log(lang);
     if (permission_list.includes(ctx.message?.text)) {
         const stats = await ctx.conversation.active();
