@@ -37,104 +37,6 @@ bot.use(i18n);
 
 
 
-// Helper function
-
-const notefication_payment = async (ctx, file_id, order_number) => {
-    await ctx.api.sendPhoto(Payment_Id, file_id, {
-        caption: `
-<b>🔔 To'lov cheki yuborildi</b>
-
-✉️ Anketa raqami: <b>${order_number}</b>
-👤 Yuboruvchi: <a href="tg://user?id=${ctx.from.id}">Telegram (${ctx.from.first_name})</a>`,
-        parse_mode: "HTML",
-    })
-}
-
-const picture_notefication = async (ctx, file_id, full_name, birthday, owner_type, child_number) => {
-    // type == candidate; hw; child
-    let picture_owner = '';
-    if (owner_type == 'candidate') {
-        picture_owner = "Kandidat"
-    } else if (owner_type == 'hw') {
-        picture_owner = "Eri/Ayoli"
-    } else if (owner_type == 'child') {
-        picture_owner = child_number + " - Farzand"
-    }
-
-
-    let msg_text = `
-Rasm egasi: <b>${picture_owner}</b>
-👤 F. I. SH: <b>${full_name}</b>
-🗓 Tug'ilgan sana: <b>${birthday}</b>
-`
-
-    await ctx.api.sendPhoto(General_Id, file_id, {
-        caption: msg_text,
-        parse_mode: "HTML",
-    })
-
-}
-
-
-const data_sender = async (ctx, data) => {
-
-    let anketa_text = `
- <b>🔔 Yangi anketa yuborildi!</b>
-
- ✉️ Anketa raqami: <b>${data.order_number}</b>
-<b>👤 Yuborivchi: Kandidat</b>
-
-👤 F.I.SH: <b>${data.full_name}</b>
-🗓 Tug'ilgan sana: <b>${data.birthday}</b>
-📍 Yashash manzili: <b>${data.live_adress}</b>
-📍 Tug'ilgan manzili: <b>${data.birth_adress}</b>
-📞 Telefon: <b>${data.phone}</b>
-🧾 Ma'lumoti: <b>${data.education}</b>
-👪 Oilaviy holati: <b>${data.marital_status}</b>
-
-<i>Farzandlar soni ${data.children_list ? data.children_list.length : 0} nafar</i>
-    `
-
-    await ctx.api.sendMessage(General_Id, anketa_text, {
-        parse_mode: "HTML"
-    })
-    await picture_notefication(ctx, data.picture[1].file_id, data.full_name, data.birthday, 'candidate', 0)
-    await picture_notefication(ctx, data.pasport[1].file_id, data.full_name, data.birthday, 'candidate', 0)
-    if (data.husband_woman) {
-        await picture_notefication(ctx, data.husband_woman.picture[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
-        await picture_notefication(ctx, data.husband_woman.pasport[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
-    }
-
-    if (data.children_list?.length > 0) {
-        for (let i = 0; i < data.children_list.length; i++) {
-            let child = data.children_list[i];
-            await picture_notefication(ctx, child.picture[1].file_id, child.fullname, child.birthday, 'child', child.number);
-            await picture_notefication(ctx, child.pasport[1].file_id, child.fullname, child.birthday, 'child', child.number);
-
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -145,13 +47,9 @@ const pm = bot.chatType("private")
 
 pm.use(createConversation(main_menu_conversation));
 pm.use(createConversation(menu_conversation));
+pm.use(createConversation(register_anketa_conversation));
 pm.use(createConversation(children_counter_conversation));
 pm.use(createConversation(husband_woman_conversation));
-pm.use(createConversation(register_anketa_conversation));
-pm.use(createConversation(send_paymentcheck_conversation));
-
-
-
 
 
 // conversation 
@@ -161,10 +59,8 @@ async function main_menu_conversation(conversation, ctx) {
         .text(ctx.t("register_btn_text"))
         .row()
         .text(ctx.t("my_anketa_btn_text"))
-        .text(ctx.t("ticket_payment_btn_text"))
-        .row()
-        .text(ctx.t("guid_btn_text"))
         .text(ctx.t("call_center_btn_text"))
+        .row()
         .resized();
     await ctx.reply(ctx.t("service_info"), {
         parse_mode: "HTML",
@@ -178,10 +74,8 @@ async function menu_conversation(conversation, ctx) {
         .text(ctx.t("register_btn_text"))
         .row()
         .text(ctx.t("my_anketa_btn_text"))
-        .text(ctx.t("ticket_payment_btn_text"))
-        .row()
-        .text(ctx.t("guid_btn_text"))
         .text(ctx.t("call_center_btn_text"))
+        .row()
         .resized();
     await ctx.reply(ctx.t("main_menu_btn_text"), {
         parse_mode: "HTML",
@@ -216,7 +110,6 @@ async function register_anketa_conversation(conversation, ctx) {
     }
 
     let fullname = ctx.message.text;
-    conversation.session.session_db.condidate.fullname = ctx.message.text
 
     // Birthday
     await ctx.reply(ctx.t("birthdate_text"), {
@@ -234,7 +127,6 @@ async function register_anketa_conversation(conversation, ctx) {
         } while (!(ctx.message?.text && ctx.message?.text?.length == 10));
     }
     let birthdate = ctx.message.text;
-    conversation.session.session_db.condidate.birthday = ctx.message.text
 
     // picture
     await ctx.reply(ctx.t("picture_text"), {
@@ -309,7 +201,21 @@ async function register_anketa_conversation(conversation, ctx) {
     }
 
     let adress_uz = ctx.message.text;
-    conversation.session.session_db.condidate.live_adress = ctx.message.text
+
+    // country
+    // await ctx.reply(ctx.t("country_text"), {
+    //     parse_mode: "HTML"
+    // })
+    // ctx = await conversation.wait();
+    // if (!ctx.message?.text) {
+    //     do {
+    //         await ctx.reply(ctx.t("country_error_text"), {
+    //             parse_mode: "HTML",
+    //         });
+    //         ctx = await conversation.wait();
+    //     } while (!ctx.message?.text);
+    // }
+    // let country = ctx.message.text;
 
     // Phone number
     await ctx.reply(ctx.t("phone_number_text"), {
@@ -333,7 +239,6 @@ async function register_anketa_conversation(conversation, ctx) {
         } while (!ctx.message?.text);
     }
     let phone_number = ctx.message.text;
-    conversation.session.session_db.condidate.phone = ctx.message.text
 
     // Education
     let education_keyboard = new Keyboard()
@@ -353,6 +258,7 @@ async function register_anketa_conversation(conversation, ctx) {
     })
     ctx = await conversation.wait();
     let education_list = [ctx.t("education_1"), ctx.t("education_2"), ctx.t("education_3"), ctx.t("education_4")]
+    console.log(ctx.message);
     if (!(ctx.message?.text && education_list.includes(ctx.message?.text))) {
         do {
             await ctx.reply(ctx.t("aducation_error_text"), {
@@ -362,8 +268,6 @@ async function register_anketa_conversation(conversation, ctx) {
         } while (!(ctx.message?.text && education_list.includes(ctx.message?.text)));
     }
     let education = ctx.message.text;
-    conversation.session.session_db.condidate.education = ctx.message.text
-
 
     // Marital status
     let marital_keyboard = new Keyboard()
@@ -385,7 +289,7 @@ async function register_anketa_conversation(conversation, ctx) {
     let marital_list = [ctx.t("marital_1"), ctx.t("marital_2"), ctx.t("marital_3"), ctx.t("marital_4")]
     if (!(ctx.message?.text && marital_list.includes(ctx.message?.text))) {
         do {
-            await ctx.reply(ctx.t("marital_status_error_text"), {
+            await ctx.reply(ctx.t("aducation_error_text"), {
                 parse_mode: "HTML",
                 reply_markup: marital_keyboard
             })
@@ -393,82 +297,17 @@ async function register_anketa_conversation(conversation, ctx) {
         } while (!(ctx.message?.text && marital_list.includes(ctx.message?.text)));
     }
     let merital = ctx.message.text;
-    conversation.session.session_db.condidate.marital_status = ctx.message.text
 
     if (ctx.message.text == ctx.t("marital_1")) {
-        await anketa_list(ctx)
-    } else if (ctx.message.text == ctx.t("marital_2")) {
-        await ctx.conversation.enter("husband_woman_conversation");
-    } else if (ctx.message.text == ctx.t("marital_3")) {
-        await ctx.conversation.enter("children_counter_conversation");
-    } else if (ctx.message.text == ctx.t("marital_4")) {
-        await ctx.conversation.enter("children_counter_conversation");
+        await ctx.reply("Tugadi.")
     }
+
+
 }
 
-async function send_paymentcheck_conversation(conversation, ctx) {
-
-    let abort_action_btn = new Keyboard()
-        .text(ctx.t("cancel_action_btn_text"))
-        .resized();
-
-    if (!conversation.session.session_db.selected_check) {
-        await ctx.reply(ctx.t("reaction_text"), {
-            parse_mode: "HTML",
-        })
-        return
-
-    }
-
-    await ctx.reply(ctx.t("check_number_picture_text"), {
-        parse_mode: "HTML",
-        reply_markup: abort_action_btn
-    })
-
-    ctx = await conversation.wait();
-    if (!ctx.message?.photo) {
-        do {
-            await ctx.reply(ctx.t("check_number_picture_error_text"), {
-                parse_mode: "HTML",
-            });
-            ctx = await conversation.wait();
-        } while (!ctx.message?.photo);
-    }
-
-    let check_picture = ctx.message.photo;
-
-    const check_payment = ctx.session.session_db.selected_check;
-    if (check_payment) {
-        let data = {
-            order_id: check_payment._id,
-            client_id: ctx.from.id,
-            payment_picture: check_picture
-        };
-
-        await ctx.reply(ctx.t("success_check_text"), {
-            parse_mode: "HTML"
-        });
-        await register_payment(data);
-        await notefication_payment(ctx, check_picture[1].file_id, check_payment.order_number)
-
-    } else {
-        await ctx.reply(ctx.t("reaction_text"))
-    }
-    await ctx.conversation.enter("menu_conversation");
-
-
-};
-
-
-
-
-async function husband_woman_conversation(conversation, ctx) {
-    let abort_action_btn = new Keyboard()
-        .text(ctx.t("cancel_action_btn_text"))
-        .resized();
+async function husband_woman_conversation(conversation, ctx){
     await ctx.reply(ctx.t("hw_fullname_text"), {
-        parse_mode: "HTML",
-        reply_markup: abort_action_btn,
+        parse_mode:"HTML"
     })
     ctx = await conversation.wait();
     if (!ctx.message?.text) {
@@ -480,9 +319,9 @@ async function husband_woman_conversation(conversation, ctx) {
         } while (!ctx.message?.text);
     }
 
-    conversation.session.session_db.husband_woman.fullname = ctx.message.text;
-    await ctx.reply(ctx.t("hw_birthdate_text"), {
-        parse_mode: "HTML"
+     conversation.session.session_db.husband_woman.fullname = ctx.message.text;
+     await ctx.reply(ctx.t("hw_birthdate_text"), {
+        parse_mode:"HTML"
     })
     ctx = await conversation.wait();
     if (!(ctx.message?.text && ctx.message?.text?.length == 10)) {
@@ -495,7 +334,7 @@ async function husband_woman_conversation(conversation, ctx) {
     }
     conversation.session.session_db.husband_woman.birthday = ctx.message.text;
     await ctx.reply(ctx.t("hw_picture_text"), {
-        parse_mode: "HTML"
+        parse_mode:"HTML"
     })
     ctx = await conversation.wait();
 
@@ -509,7 +348,7 @@ async function husband_woman_conversation(conversation, ctx) {
     }
     conversation.session.session_db.husband_woman.picture = ctx.message.photo;
     await ctx.reply(ctx.t("hw_pasport_text"), {
-        parse_mode: "HTML"
+        parse_mode:"HTML"
     })
     ctx = await conversation.wait();
     if (!ctx.message?.photo) {
@@ -521,6 +360,7 @@ async function husband_woman_conversation(conversation, ctx) {
         } while (!ctx.message?.photo);
     }
     conversation.session.session_db.husband_woman.pasport = ctx.message.photo;
+    let hw = conversation.session.session_db.husband_woman;
     await ctx.conversation.enter("children_counter_conversation");
 
 
@@ -530,23 +370,23 @@ async function husband_woman_conversation(conversation, ctx) {
 
 async function children_counter_conversation(conversation, ctx) {
     let child_keyboard = new Keyboard()
-        .text(ctx.t("no_have_child"))
-        .row()
-        .text(ctx.t("cancel_action_btn_text"))
-        .resized();
+    .text(ctx.t("no_have_child"))
+    .row()
+    .text(ctx.t("cancel_action_btn_text"))
+    .resized();
     await ctx.reply(ctx.t("children_count_text"), {
-        parse_mode: "HTML",
-        reply_markup: child_keyboard
+        parse_mode:"HTML", 
+        reply_markup:child_keyboard
     });
     ctx = await conversation.wait();
 
-    if (!(ctx.message?.text && !isNaN(ctx.message.text) && ctx.message.text?.length == 1 && ctx.message.text != '0')) {
+    if(!(ctx.message?.text && !isNaN(ctx.message.text) && ctx.message.text?.length ==1 && ctx.message.text != '0')){
         do {
             await ctx.reply(ctx.t("children_count_error_text"), {
                 parse_mode: "HTML",
             });
             ctx = await conversation.wait();
-        } while (!(ctx.message?.text && !isNaN(ctx.message.text) && ctx.message.text?.length == 1 && ctx.message.text != '0'));
+        } while (!(ctx.message?.text && !isNaN(ctx.message.text) && ctx.message.text?.length ==1 && ctx.message.text != '0'));
     }
     let children_count = +ctx.message.text;
 
@@ -559,7 +399,7 @@ async function children_counter_conversation(conversation, ctx) {
             fullname: null,
             birthday: null,
             picture: null,
-            pasport: null,
+            pasport:null,
         }
         // child fullname
         await ctx.reply(ctx.t("child_fullname_text", {
@@ -617,7 +457,7 @@ async function children_counter_conversation(conversation, ctx) {
             } while (!ctx.message?.photo);
         }
         children.picture = ctx.message.photo;
-
+       
 
         // child pasport picture
         await ctx.reply(ctx.t("child_pasport_text", {
@@ -638,9 +478,9 @@ async function children_counter_conversation(conversation, ctx) {
         }
         children.pasport = ctx.message.photo;
         conversation.session.session_db.children_list.push(children);
+
     }
-    await anketa_list(ctx)
-}
+    
 
 const anketa_list = async (ctx) => {
     let anketa_keyboard = new Keyboard()
@@ -780,24 +620,15 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
 
 }
 
-// clear session data of user
-const clear_seasion_data = async (ctx) => {
-    ctx.session.session_db.condidate.fullname = null
-    ctx.session.session_db.condidate.birthday = null
-    ctx.session.session_db.condidate.picture = []
-    ctx.session.session_db.condidate.pasport = []
-    ctx.session.session_db.condidate.live_adress = null
-    ctx.session.session_db.condidate.birth_adress = null
-    ctx.session.session_db.condidate.phone = null
-    ctx.session.session_db.condidate.education = null
-    ctx.session.session_db.condidate.marital_status = null
 
-    ctx.session.session_db.children_list = []
-    ctx.session.session_db.husband_woman.fullname = null
-    ctx.session.session_db.husband_woman.birthday = null
-    ctx.session.session_db.husband_woman.picture = []
-    ctx.session.session_db.husband_woman.pasport = []
-}
+
+
+pm.command("children", async (ctx) => {
+    await ctx.conversation.enter("husband_woman_conversation");
+})
+
+
+
 
 
 
@@ -867,15 +698,6 @@ pm.filter(async(ctx)=>{
 
 })
 
-pm.command("change_language", async (ctx) => {
-    await ctx.reply(ctx.t("start_hello_msg", {
-        full_name: ctx.from.first_name,
-        organization_name: ctx.me.first_name
-    }), {
-        parse_mode: "HTML",
-        reply_markup: language_menu
-    })
-})
 
 
 
@@ -912,7 +734,6 @@ pm.command("my_telegram_id", async(ctx)=>{
 
 
 bot.filter(hears("register_btn_text"), async (ctx) => {
-    await clear_seasion_data(ctx)
     await ctx.conversation.enter("register_anketa_conversation");
 });
 
@@ -920,66 +741,7 @@ bot.filter(hears("cancel_action_btn_text"), async (ctx) => {
     await ctx.conversation.enter("menu_conversation");
 });
 bot.filter(hears("no_have_child"), async (ctx) => {
-    await anketa_list(ctx)
-});
-bot.filter(hears("refull_anketa_btn_text"), async (ctx) => {
-    await clear_seasion_data(ctx)
-    await ctx.conversation.enter("register_anketa_conversation");
-});
-
-
-
-
-bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
-    let candidate = ctx.session.session_db.condidate;
-    let hw = ctx.session.session_db.husband_woman;
-    let children_list = ctx.session.session_db.children_list;
-    let exist_user = await user_info(ctx.from.id)
-
-    if (candidate.fullname && candidate.marital_status && exist_user) {
-        let data = {
-            client_id: exist_user._id,
-            client_tg_id: ctx.from.id,
-            full_name: candidate.fullname,
-            birthday: candidate.birthday,
-            picture: candidate.picture,
-            pasport: candidate.pasport,
-            live_adress: candidate.live_adress,
-            birth_adress: candidate.birth_adress,
-            phone: candidate.phone,
-            education: candidate.education,
-            marital_status: candidate.marital_status,
-        }
-        if (candidate.marital_status == ctx.t("marital_2")) {
-            data.husband_woman = hw
-        }
-
-        if (candidate.marital_status !== ctx.t("marital_1")) {
-            data.children_list = children_list
-        }
-
-
-        let order = await register_order(data);
-        await ctx.reply(ctx.t("payment_ticket_text", {
-            order_number: order.order_number,
-            order_date: order.created_at,
-            service_price: SERVICE_PRICE,
-            card_number: CARD_NUMBER,
-            card_owner: CARD_OWNER,
-        }), {
-            parse_mode: "HTML"
-        })
-        await data_sender(ctx, data)
-        await ctx.conversation.enter("menu_conversation");
-
-
-    } else {
-        await ctx.reply(ctx.t("expire_message_text"), {
-            parse_mode: "HTML"
-        })
-        await ctx.conversation.enter("menu_conversation");
-    }
-
+    console.log("no child");
 });
 
 
