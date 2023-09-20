@@ -8,9 +8,9 @@ const {remove_user } = require("../controllers/userController");
 
 
 const config_bot = new Composer();
-let SUPER_ADMIN_ID = [5604998397];
-let PAYMENT_ADMIN_ID = [1038293334];
-let WORKER_ADMINS = [];
+let SUPER_ADMIN_ID = [];
+let PAYMENT_ADMIN_ID = [46358166];
+let WORKER_ADMINS = [369413829];
 
 
 const i18n = new I18n({
