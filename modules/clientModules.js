@@ -480,6 +480,7 @@ async function children_counter_conversation(conversation, ctx) {
         conversation.session.session_db.children_list.push(children);
 
     }
+}
     
 
 const anketa_list = async (ctx) => {
