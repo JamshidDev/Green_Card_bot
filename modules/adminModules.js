@@ -147,6 +147,7 @@ async function confirm_order_conversation(conversation, ctx){
     await ctx.api.sendMessage(order_details.client_id, ctx.t("confirmation_code_text",{
         order_number:order_details.order_number,
         full_name:order_details.full_name,
+        birthday:order_details.birthday,
         code:confirmation_text,
     }),{
         parse_mode:"HTML",
@@ -372,7 +373,8 @@ const register_anketa_menu = new Menu("register_anketa_menu")
                         _id:data._id,
                         order_number:data.order_number,
                         client_id:data.client_tg_id,
-                        full_name:data.full_name
+                        full_name:data.full_name,
+                        birthday:data.birthday
                     };
 
                     let anketa_text = `

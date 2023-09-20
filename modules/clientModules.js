@@ -316,13 +316,21 @@ async function register_anketa_conversation(conversation, ctx) {
         parse_mode: "HTML"
     })
     ctx = await conversation.wait();
-    if (!(ctx.message?.text && ctx.message?.text?.length == 13)) {
+    // if (!(ctx.message?.text && ctx.message?.text?.length == 13)) {
+    //     do {
+    //         await ctx.reply(ctx.t("phone_number_error_text"), {
+    //             parse_mode: "HTML"
+    //         })
+    //         ctx = await conversation.wait();
+    //     } while (!(ctx.message?.text && ctx.message?.text?.length == 13));
+    // }
+    if (!ctx.message?.text) {
         do {
             await ctx.reply(ctx.t("phone_number_error_text"), {
                 parse_mode: "HTML"
             })
             ctx = await conversation.wait();
-        } while (!(ctx.message?.text && ctx.message?.text?.length == 13));
+        } while (!ctx.message?.text);
     }
     let phone_number = ctx.message.text;
     conversation.session.session_db.condidate.phone = ctx.message.text
@@ -1013,10 +1021,16 @@ pm.use(check_menu_btn)
 
 
 bot.filter(hears("ticket_payment_btn_text"), async (ctx) => {
-    await ctx.reply(ctx.t("check_order_send_text"), {
-        parse_mode: "HTML",
-        reply_markup: check_menu_btn,
-    })
+    let list = await check_orders(ctx.from.id);
+    if(list.length>0){
+        await ctx.reply(ctx.t("check_order_send_text"), {
+            parse_mode: "HTML",
+            reply_markup: check_menu_btn,
+        })
+    }else{
+        await ctx.reply(ctx.t("no_anketa_payment_text"))
+    }
+   
 });
 
 const status_text = (active, payment, finished, lang) => {

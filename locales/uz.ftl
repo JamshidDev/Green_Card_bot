@@ -1,8 +1,10 @@
 start_hello_msg = Salom {$full_name}. Xush kelibsiz <b>{$organization_name}</b>ning rasmiy botiga. Keling oldin tilni tanlaymiz!
 
+     Привет, {$full_name}. Добро пожаловать в официальный бот <b>{$organization_name}</b>. Давайте сначала выберем язык!
+
 language_uz =🇺🇿 Uzbek tili
 
-language_ru =🇷🇺 Rus tili
+language_ru =🇷🇺 Русский язык
 
 cancel_action_btn_text = 🔴 Bekor qilish
 
@@ -12,13 +14,8 @@ refull_anketa_btn_text = 🔄 Qayta to'ldirish
 
 
 
-service_info = Assalomu alaykum! Biz sizga ko’pchilikning orzusi bo’lgan Amerikada yashash va ishlash uchun <b>(Green card.Грин карта.)</b> lotoreyasini qo’lga kiritishingizda yordam beramiz! 
-
-     Green Card lotereyasi nima? Bu viza lotereyasi, unda ishtirok etish uchun siz maxsus anketani to'ldirishingiz kerak.
-     Anketangizni ishonchli va xatolarsiz to’ldiramiz. O’yinga qatnashishingiz 100% kafolatlanadi. 
-     Uydan chiqib sarson bo’lishingizga bundan tashqari soatlab navbat kutishingizga aslo xojat yo’q.
-     Hammasi juda oddiy, siz shunchaki kerakli ma’lumotlarni videoqo’llanmada ko’rsatilgandek to’g’ri va xatolarsiz to’ldirishingiz kifoya.
-     <i> Bor yog’i 100 000 so’m.</i>
+service_info = Assalomu alaykum! Biz sizga ko’pchilikning orzusi bo’lgan Amerikada yashash va ishlash uchun (Green card. Грин карта.) lotoreyasini qo’lga kiritishingizda yordam beramiz! Green Card lotereyasi nima? Bu viza lotereyasi, unda ishtirok etish uchun siz maxsus anketani to'ldirishingiz kerak. Anketangizni ishonchli va xatolarsiz to’ldiramiz. O’yinga qatnashishingiz 100% kafolatlanadi. Uydan chiqib sarson bo’lishingizga bundan tashqari soatlab navbat kutishingizga aslo xojat yo’q. Hammasi juda oddiy, siz shunchaki kerakli ma’lumotlarni videoqo’llanmada ko’rsatilgandek to’g’ri va xatolarsiz to’ldirishingiz kifoya. Anketa to’ldirib bo’linib, to’lov amalga oshirilgandan so’ng biz sizga tasdiqlash registratsiya tasdiqlash raqami (confirmation number) ni yuboramiz.
+      Bor yo’g’I 100 000 so’m.
 
 register_btn_text = ✉️ Anketa to'ldirish
 
@@ -46,12 +43,14 @@ fullname_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
 birthdate_text =✍️ Tug'ilgan sanangizni yozing!
 
-     <i>Masalan: <b>02.07.2001</b></i>
+     <i>Format: <b>KK.OO.YYYY</b></i>
+     <i>Masalan: <b>02.11.2001</b></i>
 
 birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>✍️ Tug'ilgan sanangizni yozing!</i>
-     <i>Masalan: <b>02.07.2001</b></i>
+     <i>Format: <b>KK.OO.YYYY</b></i>
+     <i>Masalan: <b>02.11.2001</b></i>
 
 picture_text =✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!
 
@@ -67,21 +66,21 @@ pasport_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
 
 uz_adress_text = ✍️ Hozirgi yashash manzilingizni to'liq yozing!
 
-      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+      <i>Masalan: <b>Toshkent shaxri. Olmazor tumani Bahoriston mahallasi 56 uy</b></i>
 
 uz_adress_error_text = ⚠️ Noto'g'ri ma'lumot yozing!
 
      <i>✍️ Hozirgi yashash manzilingizni to'liq yozing!</i>
-     <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+     <i>Masalan: <b>Toshkent shaxri. Olmazor tumani Bahoriston mahallasi 56 uy</b></i>
 
 country_text = ✍️ Tug'ulgan manzilingizni to'liq yozing!
       
-       <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+       <i>Masalan: <b>O'zbekistan res, Samarqand viloyati</b></i>
 
 country_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>✍️ Tug'ulgan manzilingizni to'liq yozing!</i>
-      <i>Masalan: <b>Toshkent viloyati, Toshkent shahri, Tikuvchilar mahallasi 13-uy</b></i>
+      <i>Masalan: <b>O'zbekistan res, Samarqand viloyati</b></i>
 
 phone_number_text = ✍️ Telefon raqamingizni yozing!
       <i>Masalan: <b>+998xx xxxx xx xx</b></i>
@@ -152,11 +151,13 @@ child_fullname_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
      
 child_birthday_text =  {$number} - Farzandingizni tug'ulgan sanasini  kiriting!
 
+      <i>Format: <b>KK.OO.YYYY</b></i>
       <i>Masalan: <b>02.07.2000</b></i>
 
 child_birthday_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
       <i>{$number} - Farzandingizni tug'ulgan sanasini  kiriting!</i>
+      <i>Format: <b>KK.OO.YYYY</b></i>
       <i>Masalan: <b>02.07.2000</b></i>
 
 child_picture_text =  {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!
@@ -184,12 +185,14 @@ hw_fullanme_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
 hw_birthdate_text =✍️ Eringiz/Ayolingiz tug'ilgan sanasini kiriting!
 
+     <i>Format: <b>KK.OO.YYYY</b></i>
      <i>Masalan: <b>02.07.1996</b></i>
 
 hw_birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i>✍️ Eringiz/Ayolingiz tug'ilgan sanasini kiriting!</i>
-      <i>Masalan: <b>02.07.1996</b></i>
+     <i>Format: <b>KK.OO.YYYY</b></i>
+     <i>Masalan: <b>02.07.1996</b></i>
 
 hw_picture_text =✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!
 
@@ -253,9 +256,13 @@ reject_order_text =<b>❌ Anketangiz rad etildi</b>
      <i>{$order_number} - raqamli anketangiz rad etildi</i>
      <i>Ma'lumot uchun Kontakt raqamlarga aloqaga chiqing!</i>
 
+no_anketa_payment_text = <b><i>🤷🏻‍♂️ Sizda to'lov chekini yuborish uchun anketalar yo'q</i></b>
 
 confirmation_code_text = <b>Ro'yhatdan o'tkazildi</b>
 
      Anketa raqami: <b>{$order_number}</b>
      Kandidat: <b>{$full_name}</b>
-     Confirmation kod: <b>{$code}</b>
+     Tug'ilgan sana: <b>{$birthday}</b>
+     Tasdiqlash kodi: <b>{$code}</b>
+
+     <i>❗️Bu xabarni Green Card javobi chiqmaguncha ( 2025- yil may) gacha saqlab qo’ying. Bu ma’lumotlarsiz siz Green Card javobini bila olmaysiz</i>

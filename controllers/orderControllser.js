@@ -29,7 +29,7 @@ const my_orders = async (client_tg_id) => {
 
 const check_orders = async (client_tg_id) => {
     try {
-        return await Order.find({ client_tg_id, active: true })
+        return await Order.find({ client_tg_id, active: true, is_payment: false })
     } catch (error) {
         customLogger.log({
             level: 'error',
