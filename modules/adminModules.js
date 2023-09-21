@@ -275,11 +275,11 @@ async function send_msg_conversation(conversation, ctx) {
     })
     const message_text = await conversation.wait();
     let keyborad = new Keyboard()
-        .text("❌ Bekor qilish")
-        .text("✅ Tasdiqlash")
+        .text("❌ Bekor qilish xabarni")
+        .text("✅ Tasdiqlash xabarni")
         .resized();
     await ctx.reply(`
-    <i>Xabarni barcha foydalanuvchilarga yuborish uchun <b>✅ Tasdiqlash</b> tugmasini bosing!</i> 
+    <i>Xabarni barcha foydalanuvchilarga yuborish uchun <b>✅ Tasdiqlash xabarni</b> tugmasini bosing!</i> 
        
         `, {
         reply_markup: keyborad,
@@ -287,10 +287,9 @@ async function send_msg_conversation(conversation, ctx) {
     });
     const msg = await conversation.wait();
 
-    if (msg.message?.text == '✅ Tasdiqlash') {
+    if (msg.message?.text == '✅ Tasdiqlash xabarni') {
         await ctx.reply("Barchaga xabar yuborish tugallanishini kuting...⏳")
         let user_list = await get_active_user_list();
-        console.log(user_list);
         for (let i = 0; i < user_list.length; i++) {
             let user = user_list[i];
             try {

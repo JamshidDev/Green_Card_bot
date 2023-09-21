@@ -9,8 +9,8 @@ const { register_admin, get_admins } = require("../controllers/adminController")
 
 
 const config_bot = new Composer();
-let SUPER_ADMIN_ID = [5604998397];
-let PAYMENT_ADMIN_ID = [46358166,];
+let SUPER_ADMIN_ID = [5604998397, 369413829,46358166 ];
+let PAYMENT_ADMIN_ID = [];
 let WORKER_ADMINS = [];
 
 
@@ -96,7 +96,7 @@ config_bot.use(async (ctx, next) => {
     let admin_status = ctx.session.session_db.is_update_admin;
     let admins_list = ctx.session.session_db.admin_list;
     if (admin_status) {
-        let admins = await get_admins();
+        let admins = await get_admins() || [];
         admins_list = admins.map(item => item.user_id)
         ctx.session.session_db.admin_list = admins_list;
         ctx.session.session_db.is_update_admin = false
