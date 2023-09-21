@@ -96,6 +96,10 @@ const order_schema = mongoose.Schema({
         ref: "User",
         default:null
     },
+    fastening_admin:{
+        type:Number,
+        default:null,
+    }
 }, {
     timestamps: {
         createdAt: 'created_at', // Use `created_at` to store the created date

@@ -4,13 +4,14 @@ const { I18n, hears } = require("@grammyjs/i18n");
 const {
     conversations,
 } = require("@grammyjs/conversations");
-const {remove_user } = require("../controllers/userController");
+const { remove_user } = require("../controllers/userController");
+const { register_admin, get_admins } = require("../controllers/adminController")
 
 
 const config_bot = new Composer();
-let SUPER_ADMIN_ID = [];
-let PAYMENT_ADMIN_ID = [46358166];
-let WORKER_ADMINS = [369413829];
+let SUPER_ADMIN_ID = [5604998397];
+let PAYMENT_ADMIN_ID = [46358166,];
+let WORKER_ADMINS = [];
 
 
 const i18n = new I18n({
@@ -33,7 +34,7 @@ config_bot.use(session({
                     fullname: null,
                     birthday: null,
                     picture: null,
-                    pasport:null,
+                    pasport: null,
                     live_adress: null,
                     birth_adress: null,
                     phone: null,
@@ -47,10 +48,13 @@ config_bot.use(session({
                     picture: null,
                     pasport: null,
                 },
-                selected_check:null,
-                selected_payment_order:null,
-                selected_payment_check:null,
-                order_details:null,
+                selected_check: null,
+                selected_payment_order: null,
+                selected_payment_check: null,
+                order_details: null,
+                admin_list: [],
+                is_update_admin: true,
+                selected_admin:null,
             }
         },
         storage: new MemorySessionStorage(),
@@ -76,8 +80,11 @@ config_bot.on("my_chat_member", async (ctx) => {
 });
 
 config_bot.use(async (ctx, next) => {
-    let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child"), "✅ Ro'yhatga olish"]
-    // let lang = await ctx.i18n.getLocale();
+    let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child"), "✅ Ro'yhatga olish", "👨‍💻 Ro'yhatga olish"]
+    let lang = await ctx.i18n.getLocale();
+    if(!i18n.locales.includes(lang)){
+        await ctx.i18n.setLocale("uz");
+    }
     // console.log(lang);
     if (permission_list.includes(ctx.message?.text)) {
         const stats = await ctx.conversation.active();
@@ -85,11 +92,23 @@ config_bot.use(async (ctx, next) => {
             await ctx.conversation.exit(key);
         }
     }
+
+    let admin_status = ctx.session.session_db.is_update_admin;
+    let admins_list = ctx.session.session_db.admin_list;
+    if (admin_status) {
+        let admins = await get_admins();
+        admins_list = admins.map(item => item.user_id)
+        ctx.session.session_db.admin_list = admins_list;
+        ctx.session.session_db.is_update_admin = false
+    }
+    WORKER_ADMINS = admins_list;
+
+
     ctx.config = {
-        super_admin:  SUPER_ADMIN_ID.includes(ctx.from?.id), 
-        payment_admin:  PAYMENT_ADMIN_ID.includes(ctx.from?.id), 
+        super_admin: SUPER_ADMIN_ID.includes(ctx.from?.id),
+        payment_admin: PAYMENT_ADMIN_ID.includes(ctx.from?.id),
         worker_admin: WORKER_ADMINS.includes(ctx.from?.id),
-        client:!(SUPER_ADMIN_ID.includes(ctx.from?.id) || PAYMENT_ADMIN_ID.includes(ctx.from?.id) || WORKER_ADMINS.includes(ctx.from?.id)),
+        client: !(SUPER_ADMIN_ID.includes(ctx.from?.id) || PAYMENT_ADMIN_ID.includes(ctx.from?.id) || WORKER_ADMINS.includes(ctx.from?.id)),
     }
     await next()
 })

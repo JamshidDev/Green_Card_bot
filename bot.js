@@ -26,9 +26,6 @@ bot.use(config_bot)
 bot.use(client_bot)
 bot.use(admin_bot)
 
-bot.on("msg", async(ctx)=>{
-    console.log(ctx.msg);
-})
 
 bot.chatType("private").filter(async(ctx)=>{
     return ctx.config.client

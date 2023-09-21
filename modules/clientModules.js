@@ -816,7 +816,10 @@ const language_menu = new Menu("language_menu")
                     }
                     await set_user_lang(data);
                     await ctx.deleteMessage();
-                    await ctx.conversation.enter("main_menu_conversation");
+                    if(ctx.config.client){
+                        await ctx.conversation.enter("main_menu_conversation");
+                    }
+                    
 
                 })
                 .row();
@@ -1013,10 +1016,18 @@ pm.use(check_menu_btn)
 
 
 bot.filter(hears("ticket_payment_btn_text"), async (ctx) => {
-    await ctx.reply(ctx.t("check_order_send_text"), {
-        parse_mode: "HTML",
-        reply_markup: check_menu_btn,
-    })
+    let list = await check_orders(ctx.from.id);
+    if(list.length>0){
+        await ctx.reply(ctx.t("check_order_send_text"), {
+            parse_mode: "HTML",
+            reply_markup: check_menu_btn,
+        })
+    }else{
+        await ctx.reply(ctx.t("no_anketa_text"), {
+            parse_mode: "HTML"
+        })
+    }
+   
 });
 
 const status_text = (active, payment, finished, lang) => {
