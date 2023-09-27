@@ -20,8 +20,8 @@ const General_Id = -1001916750534;
 
 
 // Payment card details
-const CARD_NUMBER = "5614681401907245";
-const CARD_OWNER = "Jamshid Raximov Shuxrat o'g'li";
+const CARD_NUMBER = "5614681816179307";
+const CARD_OWNER = "Ergashev Qodirbek";
 const SERVICE_PRICE = "100 000"
 
 const bot = new Composer();
@@ -99,17 +99,17 @@ const data_sender = async (ctx, data) => {
         parse_mode: "HTML"
     })
     await picture_notefication(ctx, data.picture[1].file_id, data.full_name, data.birthday, 'candidate', 0)
-    await picture_notefication(ctx, data.pasport[1].file_id, data.full_name, data.birthday, 'candidate', 0)
+    // await picture_notefication(ctx, data.pasport[1].file_id, data.full_name, data.birthday, 'candidate', 0)
     if (data.husband_woman) {
         await picture_notefication(ctx, data.husband_woman.picture[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
-        await picture_notefication(ctx, data.husband_woman.pasport[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
+        // await picture_notefication(ctx, data.husband_woman.pasport[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
     }
 
     if (data.children_list?.length > 0) {
         for (let i = 0; i < data.children_list.length; i++) {
             let child = data.children_list[i];
             await picture_notefication(ctx, child.picture[1].file_id, child.fullname, child.birthday, 'child', child.number);
-            await picture_notefication(ctx, child.pasport[1].file_id, child.fullname, child.birthday, 'child', child.number);
+            // await picture_notefication(ctx, child.pasport[1].file_id, child.fullname, child.birthday, 'child', child.number);
 
         }
     }
@@ -257,23 +257,23 @@ async function register_anketa_conversation(conversation, ctx) {
 
 
     // Pasport
-    await ctx.reply(ctx.t("pasport_text"), {
-        parse_mode: "HTML"
-    })
+    // await ctx.reply(ctx.t("pasport_text"), {
+    //     parse_mode: "HTML"
+    // })
 
-    ctx = await conversation.wait();
+    // ctx = await conversation.wait();
 
-    if (!ctx.message?.photo) {
-        do {
-            await ctx.reply(ctx.t("pasport_error_text"), {
-                parse_mode: "HTML",
-            });
-            ctx = await conversation.wait();
-        } while (!ctx.message?.photo);
-    }
+    // if (!ctx.message?.photo) {
+    //     do {
+    //         await ctx.reply(ctx.t("pasport_error_text"), {
+    //             parse_mode: "HTML",
+    //         });
+    //         ctx = await conversation.wait();
+    //     } while (!ctx.message?.photo);
+    // }
 
-    let pasport = ctx.message.photo;
-    conversation.session.session_db.condidate.pasport = ctx.message.photo
+    // let pasport = ctx.message.photo;
+    // conversation.session.session_db.condidate.pasport = ctx.message.photo
 
     // country_uz
     await ctx.reply(ctx.t("country_text"), {
@@ -316,13 +316,13 @@ async function register_anketa_conversation(conversation, ctx) {
         parse_mode: "HTML"
     })
     ctx = await conversation.wait();
-    if (!(ctx.message?.text && ctx.message?.text?.length == 13)) {
+    if (!(ctx.message?.text)) {
         do {
             await ctx.reply(ctx.t("phone_number_error_text"), {
                 parse_mode: "HTML"
             })
             ctx = await conversation.wait();
-        } while (!(ctx.message?.text && ctx.message?.text?.length == 13));
+        } while (!(ctx.message?.text));
     }
     let phone_number = ctx.message.text;
     conversation.session.session_db.condidate.phone = ctx.message.text
@@ -500,19 +500,19 @@ async function husband_woman_conversation(conversation, ctx) {
         } while (!ctx.message?.photo);
     }
     conversation.session.session_db.husband_woman.picture = ctx.message.photo;
-    await ctx.reply(ctx.t("hw_pasport_text"), {
-        parse_mode: "HTML"
-    })
-    ctx = await conversation.wait();
-    if (!ctx.message?.photo) {
-        do {
-            await ctx.reply(ctx.t("hw_pasport_error_text"), {
-                parse_mode: "HTML",
-            });
-            ctx = await conversation.wait();
-        } while (!ctx.message?.photo);
-    }
-    conversation.session.session_db.husband_woman.pasport = ctx.message.photo;
+    // await ctx.reply(ctx.t("hw_pasport_text"), {
+    //     parse_mode: "HTML"
+    // })
+    // ctx = await conversation.wait();
+    // if (!ctx.message?.photo) {
+    //     do {
+    //         await ctx.reply(ctx.t("hw_pasport_error_text"), {
+    //             parse_mode: "HTML",
+    //         });
+    //         ctx = await conversation.wait();
+    //     } while (!ctx.message?.photo);
+    // }
+    // conversation.session.session_db.husband_woman.pasport = ctx.message.photo;
     await ctx.conversation.enter("children_counter_conversation");
 
 
@@ -612,23 +612,23 @@ async function children_counter_conversation(conversation, ctx) {
 
 
         // child pasport picture
-        await ctx.reply(ctx.t("child_pasport_text", {
-            number
-        }), {
-            parse_mode: "HTML",
-        });
-        ctx = await conversation.wait();
-        if (!ctx.message?.photo) {
-            do {
-                await ctx.reply(ctx.t("child_pasport_error_text", {
-                    number
-                }), {
-                    parse_mode: "HTML",
-                });
-                ctx = await conversation.wait();
-            } while (!ctx.message?.photo);
-        }
-        children.pasport = ctx.message.photo;
+        // await ctx.reply(ctx.t("child_pasport_text", {
+        //     number
+        // }), {
+        //     parse_mode: "HTML",
+        // });
+        // ctx = await conversation.wait();
+        // if (!ctx.message?.photo) {
+        //     do {
+        //         await ctx.reply(ctx.t("child_pasport_error_text", {
+        //             number
+        //         }), {
+        //             parse_mode: "HTML",
+        //         });
+        //         ctx = await conversation.wait();
+        //     } while (!ctx.message?.photo);
+        // }
+        // children.pasport = ctx.message.photo;
         conversation.session.session_db.children_list.push(children);
     }
     await anketa_list(ctx)
@@ -646,7 +646,9 @@ const anketa_list = async (ctx) => {
     let children_list = ctx.session.session_db.children_list;
     let lang = await ctx.i18n.getLocale();
     if(lang == 'uz'){
-
+        // Pasport rasmi: <b>${candidate.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
+        // Pasport rasmi: <b>${hw.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
+        // Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
         let candidate_text = `
 <b>📌 Anketadagi tekshiring va barcha ma'lumotlaringiz to'g'riligiga ishonch hosil qiling!</b>
 <i>Barcha ma'lumotlar to'g'ri bo'lgan holatda <b>✅ Tasdiqlash</b> tugmasini bosing.</i>
@@ -654,8 +656,7 @@ const anketa_list = async (ctx) => {
         
 F .I .SH: <b>${candidate.fullname}</b>
 Tug'ilgan sana: <b>${candidate.birthday}</b>
- Rasm: <b>${candidate.picture.length > 0 ? 'Bor' : "Yo'q"}</b>
-Pasport rasmi: <b>${candidate.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
+Rasm: <b>${candidate.picture.length > 0 ? 'Bor' : "Yo'q"}</b>
 Yashash manzil: <b>${candidate.live_adress}</b>
 Tug'ilgan manzil: <b>${candidate.birth_adress}</b>
 Telefon raqam: <b>${candidate.phone}</b>
@@ -669,7 +670,6 @@ Oilaviy holati: <b>${candidate.marital_status}</b>`
 F .I .SH: <b>${hw.fullname}</b>
 Tug'ilgan sana: <b>${hw.birthday}</b>
 Rasm: <b>${hw.picture.length > 0 ? 'Bor' : "Yo'q"}</b>
-Pasport rasmi: <b>${hw.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
             `
                 candidate_text = candidate_text + hw_text;
             }
@@ -683,8 +683,7 @@ Pasport rasmi: <b>${hw.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
 <i>${children_list[son].number} - Farzand</i>
 F .I .SH: <b>${children_list[son].fullname}</b>
 Tug'ilgan sana: <b>${children_list[son].birthday}</b>
-Rasm: <b>${children_list[son].picture.length > 0 ? 'Bor' : "Yo'q"}</b>
-Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
+Rasm: <b>${children_list[son].picture.length > 0 ? 'Bor' : "Yo'q"}</b>`
                     children_text = children_text + sont_details
                 }
                 candidate_text = candidate_text + children_text;
@@ -701,6 +700,9 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
             })
 
     }else{
+        // Фото на паспорт: <b>${hw.pasport.length > 0 ? 'Есть' : "Нет"}</b>
+        // Фото на паспорт: <b>${children_list[son].pasport.length > 0 ? 'Есть' : "Нет"}</b>
+        // Фото на паспорт: <b>${candidate.pasport.length > 0 ? 'Есть' : "Нет"}</b>
         let candidate_text = `
 <b>📌 Проверьте форму и убедитесь, что вся введенная вами информация верна!</b>
 <i>Если вся информация верна, нажмите <b> ✅ Подтверждение</b>.</i>
@@ -709,7 +711,6 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
 Ф .И .Ш: <b>${candidate.fullname}</b>
 Дата рождения: <b>${candidate.birthday}</b>
 Фото: <b>${candidate.picture.length > 0 ? 'Есть' : "Нет"}</b>
-Фото на паспорт: <b>${candidate.pasport.length > 0 ? 'Есть' : "Нет"}</b>
 Адрес проживания: <b>${candidate.live_adress}</b>
 Адрес рождения: <b>${candidate.birth_adress}</b>
 Номер телефона: <b>${candidate.phone}</b>
@@ -723,7 +724,6 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
 Ф .И .Ш: <b>${hw.fullname}</b>
 Дата рождения: <b>${hw.birthday}</b>
 Фото: <b>${hw.picture.length > 0 ? 'Есть' : "Нет"}</b>
-Фото на паспорт: <b>${hw.pasport.length > 0 ? 'Есть' : "Нет"}</b>
             `
                 candidate_text = candidate_text + hw_text;
             }
@@ -737,8 +737,7 @@ Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>`
 <i>${children_list[son].number} - Ребенок</i>
 Ф .И .Ш: <b>${children_list[son].fullname}</b>
 Дата рождения: <b>${children_list[son].birthday}</b>
-Фото: <b>${children_list[son].picture.length > 0 ? 'Есть' : "Нет"}</b>
-Фото на паспорт: <b>${children_list[son].pasport.length > 0 ? 'Есть' : "Нет"}</b>`
+Фото: <b>${children_list[son].picture.length > 0 ? 'Есть' : "Нет"}</b>`
                     children_text = children_text + sont_details
                 }
                 candidate_text = candidate_text + children_text;

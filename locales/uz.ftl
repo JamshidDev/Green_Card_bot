@@ -52,11 +52,11 @@ birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
      <i>Format: <b>KK.OO.YYYY</b></i>
      <i>Masalan: <b>02.11.2001</b></i>
 
-picture_text =✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!
+picture_text =✍️ Fotostudiyada tushgan Green Card formatidagi(6x6) rasmingizni yuboring!
 
 picture_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
 
-     <i>✍️ Foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
+     <i>✍️ Fotostudiyada tushgan Green Card formatidagi(6x6) rasmingizni yuboring!</i>
 
 pasport_text =✍️ Pasportingiz rasmini yuboring!
 
@@ -83,12 +83,20 @@ country_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
       <i>Masalan: <b>O'zbekistan res, Samarqand viloyati</b></i>
 
 phone_number_text = ✍️ Telefon raqamingizni yozing!
-      <i>Masalan: <b>+998xx xxxx xx xx</b></i>
+      <i>Masalan:</i>
+      🇺🇿 +998xx xxxx xx xx
+      🇰🇿 +7(ххх) ххх хх хх
+      🇰🇬 +996 ххх ххх ххх
+      🇹🇯 +992 ххх ххх ххх
 
 phone_number_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
      <i> ✍️ Telefon raqamingizni yozing!</i>
-     <i>Masalan: <b>+998xx xxxx xx xx</b></i>
+     <i>Masalan:</i>
+      🇺🇿 +998xx xxxx xx xx
+      🇰🇿 +7(ххх) ххх хх хх
+      🇰🇬 +996 ххх ххх ххх
+      🇹🇯 +992 ххх ххх ххх
 
 aducation_text = 👇 Ta'lim darajangizni tanlang!
 
@@ -160,11 +168,11 @@ child_birthday_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
       <i>Format: <b>KK.OO.YYYY</b></i>
       <i>Masalan: <b>02.07.2000</b></i>
 
-child_picture_text =  {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!
+child_picture_text =  {$number} - Farzandingizni fotostudiyada tushgan Green Card formatidagi(6x6) rasmini yuboring!
 
 child_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
 
-      <i> {$number} - Farzandingizni foto studiyada tushgan 6x6 rasmingizni yuboring!</i>
+      <i> {$number} - Farzandingizni fotostudiyada tushgan Green Card formatidagi(6x6) rasmini yuboring!</i>
      
 child_pasport_text =  {$number} - Farzandingizni pasport yoki metrikasini rasmini yuboring!
 
@@ -194,11 +202,11 @@ hw_birthdate_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
      <i>Format: <b>KK.OO.YYYY</b></i>
      <i>Masalan: <b>02.07.1996</b></i>
 
-hw_picture_text =✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!
+hw_picture_text =✍️ Eringiz/Ayolingiz fotostudiyada tushgan Green Card formatidagi(6x6) rasmini yuboring!
 
 hw_picture_error_text =⚠️ Noto'g'ri ma'lumot kiritildi!
 
-     <i>✍️ Eringiz/Ayolingiz foto studiyada tushgan 6x6 rasmini yuboring!</i>
+     <i>✍️ Eringiz/Ayolingiz fotostudiyada tushgan Green Card formatidagi(6x6) rasmini yuboring!</i>
 
 hw_pasport_text =✍️ Eringiz/Ayolingiz pasport rasmini yuboring!
 
@@ -245,6 +253,8 @@ check_number_picture_error_text = ⚠️ Noto'g'ri ma'lumot kiritildi!
      <i>To'lov chekini rasmini yuboring!</i>
 
 success_check_text = <b>✅ To'lov cheki adminga tekshiruv uchun yuborildi!</b>
+
+     <i>Anketa 24 soat ichida ro'yhatdan o'tkazilib sizga xabar yuboriladi!</i>
 
 reject_payment_check_text =<b>❌ To'lov cheki tasdiqlanmadi</b>
 

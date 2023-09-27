@@ -41,7 +41,7 @@ const check_orders = async (client_tg_id) => {
 
 const check_payments = async () => {
     try {
-        return await Order.find({ is_payment: false, active: true })
+        return await Order.find({ is_payment: false, active: true }).limit(15)
     } catch (error) {
         customLogger.log({
             level: 'error',
@@ -82,7 +82,7 @@ const reject_order = async (data) => {
 
 const cheked_payment_orders = async () => {
     try {
-        return await Order.find({ is_payment: true, active: true, is_finished: false })
+        return await Order.find({ is_payment: true, active: true, is_finished: false }).limit(15)
     } catch (error) {
         customLogger.log({
             level: 'error',
@@ -93,7 +93,7 @@ const cheked_payment_orders = async () => {
 
 const my_check_payment_orders = async (user_id) => {
     try {
-        return await Order.find({ fastening_admin: user_id, is_payment: true, active: true, is_finished: false, })
+        return await Order.find({ fastening_admin: user_id, is_payment: true, active: true, is_finished: false, }).limit(15)
     } catch (error) {
         customLogger.log({
             level: 'error',
@@ -133,7 +133,7 @@ const finished_order_by_picture = async (data) => {
 
 const free_orders = async () => {
     try {
-        return await Order.find({ is_payment: true, active: true, is_finished: false, fastening_admin: null, })
+        return await Order.find({ is_payment: true, active: true, is_finished: false, fastening_admin: null, }).limit(15)
     } catch (error) {
         customLogger.log({
             level: 'error',

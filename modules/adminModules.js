@@ -584,17 +584,17 @@ const register_anketa_menu = new Menu("register_anketa_menu")
                        `
 
                     await picture_notefication(ctx, data.picture[1].file_id, data.full_name, data.birthday, 'candidate', 0)
-                    await picture_notefication(ctx, data.pasport[1].file_id, data.full_name, data.birthday, 'candidate', 0)
+                    // await picture_notefication(ctx, data.pasport[1].file_id, data.full_name, data.birthday, 'candidate', 0)
                     if (data.husband_woman) {
                         await picture_notefication(ctx, data.husband_woman.picture[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
-                        await picture_notefication(ctx, data.husband_woman.pasport[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
+                        // await picture_notefication(ctx, data.husband_woman.pasport[1].file_id, data.husband_woman.fullname, data.husband_woman.birthday, 'hw', 0)
                     }
 
                     if (data.children_list?.length > 0) {
                         for (let i = 0; i < data.children_list.length; i++) {
                             let child = data.children_list[i];
                             await picture_notefication(ctx, child.picture[1].file_id, child.fullname, child.birthday, 'child', child.number);
-                            await picture_notefication(ctx, child.pasport[1].file_id, child.fullname, child.birthday, 'child', child.number);
+                            // await picture_notefication(ctx, child.pasport[1].file_id, child.fullname, child.birthday, 'child', child.number);
 
                         }
                     }

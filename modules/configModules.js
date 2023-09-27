@@ -8,6 +8,7 @@ const { remove_user } = require("../controllers/userController");
 const { register_admin, get_admins } = require("../controllers/adminController")
 
 
+
 const config_bot = new Composer();
 let SUPER_ADMIN_ID = [5604998397, 369413829,46358166 ];
 let PAYMENT_ADMIN_ID = [];
@@ -63,8 +64,14 @@ config_bot.use(session({
     conversation: {},
     __language_code: {},
 }));
+
+// config_bot.api.config.use(autoRetry({
+//     maxRetryAttempts: 1, // only repeat requests once
+//     maxDelaySeconds: 5, // fail immediately if we have to wait >5 seconds
+// }));
 config_bot.use(i18n);
 config_bot.use(conversations());
+
 
 
 
@@ -80,7 +87,6 @@ config_bot.on("my_chat_member", async (ctx) => {
 });
 
 config_bot.use(async (ctx, next) => {
-    console.log(ctx.message);
     let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child"), "✅ Ro'yhatga olish", "👨‍💻 Ro'yhatga olish"]
     let lang = await ctx.i18n.getLocale();
     if(!i18n.locales.includes(lang)){
