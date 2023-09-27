@@ -80,6 +80,7 @@ config_bot.on("my_chat_member", async (ctx) => {
 });
 
 config_bot.use(async (ctx, next) => {
+    console.log(ctx.message);
     let permission_list = [ctx.t("cancel_action_btn_text"), ctx.t("no_have_child"), "✅ Ro'yhatga olish", "👨‍💻 Ro'yhatga olish"]
     let lang = await ctx.i18n.getLocale();
     if(!i18n.locales.includes(lang)){
