@@ -227,7 +227,7 @@ payment_ticket_text = ✅ Sizning <b>Green Card</b> uchun  to'ldirgan anketangiz
      📨 Buyurtma raqami: <b>{$order_number}</b>
      🕤 Buyurtma sanasi: <b>{$order_date}</b>
      💰 To'lov summasi: <b>{$service_price} so'm</b>
-     <i>💳 Karta raqami: <b>{$card_number}</b></i>
+     <i>💳 Karta raqami: <code>{$card_number}</code></i>
      <i>👤 Karta egasi: <b>{$card_owner}</b></i>
 
      <i>Yuqorida keltirilgan karta raqamga to'lovni amalga oshiring va <b>📑 Chek yuborish</b> tugmasi orqali to'lov chekini yuboring</i>

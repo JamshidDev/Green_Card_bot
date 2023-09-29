@@ -10,7 +10,8 @@ require('dotenv').config()
 
 const { check_user, register_user, user_info, remove_user, set_user_lang } = require("../controllers/userController");
 const { register_order, my_orders, check_orders } = require("../controllers/orderControllser");
-const { register_payment } = require("../controllers/paymentController")
+const { register_payment } = require("../controllers/paymentController");
+const { log } = require("winston");
 
 
 
@@ -650,7 +651,7 @@ const anketa_list = async (ctx) => {
         // Pasport rasmi: <b>${hw.pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
         // Pasport rasmi: <b>${children_list[son].pasport.length > 0 ? 'Bor' : "Yo'q"}</b>
         let candidate_text = `
-<b>📌 Anketadagi tekshiring va barcha ma'lumotlaringiz to'g'riligiga ishonch hosil qiling!</b>
+<b>📌 Anketani tekshiring va barcha ma'lumotlaringiz to'g'riligiga ishonch hosil qiling!</b>
 <i>Barcha ma'lumotlar to'g'ri bo'lgan holatda <b>✅ Tasdiqlash</b> tugmasini bosing.</i>
 <i>Ma'lumotlarda qandaydir xatolik bo'lsa <b>🔄 Qayta to'ldirish</b> tugmasini bosing.</i>
         
@@ -975,6 +976,9 @@ bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
     }
 
 });
+
+
+
 
 
 
