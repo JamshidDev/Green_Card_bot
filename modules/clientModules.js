@@ -11,13 +11,16 @@ require('dotenv').config()
 const { check_user, register_user, user_info, remove_user, set_user_lang } = require("../controllers/userController");
 const { register_order, my_orders, check_orders } = require("../controllers/orderControllser");
 const { register_payment } = require("../controllers/paymentController");
-const { log } = require("winston");
+
 
 
 
 // Environments variables
 const Payment_Id = -1001936916433;
 const General_Id = -1001916750534;
+const guide_video_uz = 'BAACAgIAAxkBAAIk6WUawPLRVG6Rgt1jCsncGtmzotQoAAJFOQAC8IzQSDsmP3xPiAKGMAQ';
+const guide_video_ru = 'BAACAgIAAxkBAAIk8GUawUafcF_4dOJLTRe-MYVk8smHAAItOQACo7vYSKDPHIoYNMzSMAQ';
+
 
 
 // Payment card details
@@ -827,6 +830,24 @@ const language_menu = new Menu("language_menu")
     })
 pm.use(language_menu)
 
+const guide_video = async(ctx, lang)=>{
+    if(lang == 'ru'){
+        await ctx.replyWithVideo(guide_video_ru, {
+            caption:`
+    <b>📚 Видеогид</b>        
+            `, 
+            parse_mode:"HTML"
+        })
+    }else{
+        await ctx.replyWithVideo(guide_video_uz, {
+            caption:`
+    <b>📚 Video qo'llanma</b>        
+            `, 
+            parse_mode:"HTML"
+        })
+    }
+}
+
 
 pm.filter(async(ctx)=>{
     return ctx.config.client
@@ -847,6 +868,7 @@ pm.filter(async(ctx)=>{
         data.lang = user.lang;
         await register_user(data);
         await ctx.conversation.enter("main_menu_conversation");
+        await guide_video(ctx, lang)
     } else {
         lang = await ctx.i18n.getLocale()
         data.lang = lang;
@@ -858,6 +880,7 @@ pm.filter(async(ctx)=>{
             parse_mode: "HTML",
             reply_markup: language_menu
         })
+        await guide_video(ctx, lang)
     }
 
 })
@@ -988,10 +1011,10 @@ bot.filter(hears("confirm_anketa_btn_text"), async (ctx) => {
 
 
 
-
-
 bot.filter(hears("guid_btn_text"), async (ctx) => {
-    await ctx.reply("Tez orada qo'shiladi qo'llanma...")
+    let lang = await ctx.i18n.getLocale();
+    await guide_video(ctx, lang)
+
 });
 
 bot.filter(hears("call_center_btn_text"), async (ctx) => {
