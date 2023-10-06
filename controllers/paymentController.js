@@ -53,6 +53,20 @@ const confirm_payment_check = async (id) => {
     }
 }
 
+// const delete_all_orders = async () => {
+//     try {
+
+//         await Payment.deleteMany({})
+//     } catch (error) {
+//         customLogger.log({
+//             level: 'error',
+//             message: error
+//         });
+//     }
+// }
+
+// delete_all_orders()
+
 
 module.exports = {
     register_payment,

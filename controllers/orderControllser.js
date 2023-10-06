@@ -248,7 +248,19 @@ const set_document_fields = async () => {
 }
 
 
+// const delete_all_orders = async () => {
+//     try {
 
+//         await Order.deleteMany({})
+//     } catch (error) {
+//         customLogger.log({
+//             level: 'error',
+//             message: error
+//         });
+//     }
+// }
+
+// delete_all_orders()
 
 
 

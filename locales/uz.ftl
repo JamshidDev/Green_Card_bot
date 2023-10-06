@@ -237,8 +237,8 @@ payment_ticket_text = ✅ Sizning <b>Green Card</b> uchun  to'ldirgan anketangiz
 contact_phone_text = <b>Bog'lanish uchun raqamlar</b>
 
      <b>🔍 Savol va murojatlar uchun raqamlar</b>
-     <i>☎️ Call markaz: <b> +998 (99) 140-09-99</b></i>
-     <i>☎️ Qo'shimcha raqam: <b> +998 (99) 140-09-99</b></i>
+     <i>☎️ Call markaz: <b> +998 (99) 770-00-27</b></i>
+     <i>☎️ Qo'shimcha raqam: <b> +998 (90) 353-44-43</b></i>
 
 no_anketa_text = <i><b>🤷‍♂️ Sizda anketalar yo'q</b></i>
 
